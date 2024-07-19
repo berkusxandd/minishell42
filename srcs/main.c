@@ -114,5 +114,6 @@ int main()
 	t_all_pipelines *all_pipes = pipelines_creator(input);
 	free(input);
 	printf("%s",all_pipes->pipelines[0]->infiles[1]);
+	quote_parser("'''berke'ince'ibrahim'");
 	free_all_pipelines(all_pipes);
 }

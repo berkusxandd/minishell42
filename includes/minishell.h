@@ -50,4 +50,5 @@ char *two_signs_handler(char *input);
 t_pipeline *pipeline_init();
 t_nns *nns_init(char *input);
 int count_quotes(char *str);
+void quote_parser(char *str);
 #endif
