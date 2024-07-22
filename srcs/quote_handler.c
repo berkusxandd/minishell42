@@ -80,7 +80,7 @@ int *write_quote_indexes(char *str)
 	quote_count = count_quotes(str);
 	quote_indexes = malloc(sizeof(int) * (quote_count  * 2 + 1));
 	v2 = quote_handler(str,0);
-	while(v2.i != v2.j)
+	while(i<quote_count  * 2)
 	{
 		quote_indexes[i] = v2.i;
 		i++;
@@ -92,11 +92,50 @@ int *write_quote_indexes(char *str)
 	return (quote_indexes);
 }
 
-void quote_parser(char *str)
+int is_quote_index(int i, int *quote_indexes)
+{
+	int j;
+
+	j = 0;
+	while(quote_indexes[j] != -1)
+	{
+		if (quote_indexes[j] == i)
+			return 1;
+		j++;
+	}
+	return 0;
+}
+
+char *generate_str_wo_quotes(char *str,int *quote_indexes)
+{
+	int i;
+	int j;
+	char *parsed_str;
+	int quote_count;
+
+	quote_count = count_quotes(str);
+	parsed_str = malloc(sizeof(char) * (ft_strlen(str) + 1) - (quote_count * 2));
+
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (is_quote_index(i,quote_indexes) == 0)
+		{
+			parsed_str[j] = str[i];
+			j++;
+		}
+		i++;
+	 }
+	 parsed_str[j] = '\0';
+	 free(quote_indexes);
+	 return parsed_str;
+}
+
+char *quote_parser(char *str)
 {
 	int *quote_indexes;
-	//char *quote_parsed_str;
 	quote_indexes = write_quote_indexes(str);
-
-	print_indexes(quote_indexes);
+	char *parsed_str = generate_str_wo_quotes(str, quote_indexes);
+	return parsed_str;
 }

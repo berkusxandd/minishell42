@@ -32,6 +32,11 @@ typedef struct s_vector2
 	int j;
 } t_vector2;
 
+typedef struct s_minishell
+{
+
+} 
+
 int is_set(char c);
 int is_token(char c);
 char *parse(char *input);
@@ -50,5 +55,5 @@ char *two_signs_handler(char *input);
 t_pipeline *pipeline_init();
 t_nns *nns_init(char *input);
 int count_quotes(char *str);
-void quote_parser(char *str);
+char *quote_parser(char *str);
 #endif

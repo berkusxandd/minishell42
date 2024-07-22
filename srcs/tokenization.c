@@ -71,7 +71,7 @@ char  **tokenization(t_nns **nns, char token)
 	int token_count;
 	int i;
 	char **tokens;
-
+	char *quote_parsed_str;
 	i = 0;
 	token_count = count_tokens((*nns)->newstr,token);
 	tokens = malloc((token_count + 1) * sizeof(char*));
@@ -80,7 +80,9 @@ char  **tokenization(t_nns **nns, char token)
 	while(i < token_count)
 	{
 		*nns = gen_token(*nns,token);
-		tokens[i] = ft_strdup((*nns)->name);
+		quote_parsed_str = quote_parser((*nns)->name);
+		tokens[i] = ft_strdup(quote_parsed_str);
+		free(quote_parsed_str);
 		i++;
 	}
 	tokens[i] = NULL;

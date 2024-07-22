@@ -107,13 +107,14 @@ void free_all_pipelines(t_all_pipelines *all_pipelines)
 }
 int main()
 {
-	char *test = ">a < aninfile <'a''a'   secind    < third cat Makefile >b | mem >>outfile > A > B > C > D | cat a >>extendedfile";
+	//char *test = ">a < aninfile <'a''a'   secind    < third cat Makefile >b | mem >>outfile > A > B > C > D | cat a >>extendedfile";
+	//char *test = "wc -l";
+	char *test = "cat '''file1' > file2 < file3 | infile < cat | grep text >> file4 | infile < cat | wc -l | sleep 3 | wc -c > outfile";
 	char *input = two_signs_handler(test);
 	if (input == NULL)
 		error_exit();
 	t_all_pipelines *all_pipes = pipelines_creator(input);
 	free(input);
-	printf("%s",all_pipes->pipelines[0]->infiles[1]);
-	quote_parser("'''berke'ince'ibrahim'");
+	printf("%s",all_pipes->pipelines[0]->cmd[1]);
 	free_all_pipelines(all_pipes);
 }
