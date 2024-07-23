@@ -59,16 +59,6 @@ int count_quotes(char *str)
 	return quote_count;
 }
 
-void print_indexes(int *indexes)
-{
-	int i = 0;
-	while (indexes[i] != -1)
-	{
-		printf("\n==%d==\n", indexes[i]);
-		i++;
-	}
-}
-
 int *write_quote_indexes(char *str)
 {
 	int i;
@@ -79,6 +69,8 @@ int *write_quote_indexes(char *str)
 	int quote_count;
 	quote_count = count_quotes(str);
 	quote_indexes = malloc(sizeof(int) * (quote_count  * 2 + 1));
+	if (!quote_indexes)
+		return NULL;
 	v2 = quote_handler(str,0);
 	while(i<quote_count  * 2)
 	{
@@ -115,7 +107,8 @@ char *generate_str_wo_quotes(char *str,int *quote_indexes)
 
 	quote_count = count_quotes(str);
 	parsed_str = malloc(sizeof(char) * (ft_strlen(str) + 1) - (quote_count * 2));
-
+	if (!parsed_str)
+		return NULL;
 	i = 0;
 	j = 0;
 	while (str[i])
@@ -136,6 +129,10 @@ char *quote_parser(char *str)
 {
 	int *quote_indexes;
 	quote_indexes = write_quote_indexes(str);
+	if (!quote_indexes)
+		return NULL;
 	char *parsed_str = generate_str_wo_quotes(str, quote_indexes);
+	if (!parsed_str)
+		free(quote_indexes);
 	return parsed_str;
 }

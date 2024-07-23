@@ -8,11 +8,23 @@ char **cmd_quote_parser(char *res_str)
 
 	i = 0;
 	raw_cmds = ft_split(res_str,' ');
+	if (!raw_cmds)
+		return NULL;
 	while(raw_cmds[i])
 	{
 		tmp = ft_strdup(raw_cmds[i]);
+		if (!tmp)
+		{
+			free_str_tab(raw_cmds);
+			return NULL;
+		}
 		free(raw_cmds[i]);
 		raw_cmds[i] = quote_parser(tmp);
+		if (!raw_cmds[i])
+		{
+			free_str_tab(raw_cmds);
+			return NULL;
+		}
 		free(tmp);
 		i++;
 	}
@@ -25,11 +37,38 @@ t_pipeline *parser(char *input)
 	t_pipeline *pipeline;
 
 	pipeline = pipeline_init();
+	if (!pipeline)
+		return NULL;
 	nns = nns_init(input);
+	if (!nns)
+	{
+		free_pipeline(pipeline);
+		return NULL;
+	}
 	pipeline->outfiles = tokenization(&nns,'>');
+	if (!pipeline->outfiles)
+	{
+		free_pipeline(pipeline);
+		return NULL;
+	}
 	pipeline->infiles = tokenization(&nns, '<');
+	if (!pipeline->infiles)
+	{
+		free_pipeline(pipeline);
+		return NULL;
+	}
 	pipeline->here_docs = tokenization(&nns, -1);
+	if (!pipeline->here_docs)
+	{
+		free_pipeline(pipeline);
+		return NULL;
+	}
 	pipeline->outfiles_ext = tokenization(&nns, -2);
+	if (!pipeline->outfiles_ext)
+	{
+		free_pipeline(pipeline);
+		return NULL;
+	}
 	pipeline->cmd = cmd_quote_parser(nns->newstr);
 	free(nns->name);
 	free(nns->newstr);
@@ -37,24 +76,31 @@ t_pipeline *parser(char *input)
 	return pipeline;
 }
 
-t_all_pipelines *pipelines_creator(char *input)
+void all_pipelines_init(t_core *core)
+{
+	core->all_pipelines->pipelines = NULL;
+}
+
+int pipelines_creator(t_all_pipelines *all_pipes, char *input)
 {
 	char **pipelines_str = ft_split(input, '|');
+	if (!pipelines_str)
+		return 0;
 	int pipe_counter = count_tokens(input, '|');
-	t_all_pipelines *all_pipes;
-	all_pipes = malloc(sizeof(t_all_pipelines));
-	if (!pipelines_str || !all_pipes)
-		return NULL;
-	all_pipes->pipelines = malloc(sizeof(t_pipeline) * (pipe_counter + 2));///BU MALLOC LEAK
+	all_pipes->pipelines = ft_calloc(sizeof(t_pipeline), (pipe_counter + 2));
+	if (!all_pipes->pipelines)
+		return(error_0(pipelines_str));
 	int i;
 	i = 0;
 	while(pipelines_str[i])
 	{
 		all_pipes->pipelines[i] = parser(pipelines_str[i]);
+		if (!all_pipes->pipelines[i])
+			return(error_0(pipelines_str));
 		free(pipelines_str[i]);
 		i++;
 	}
 	free(pipelines_str);
 	all_pipes->pipelines[i] = NULL;
-	return all_pipes;
+	return 1;
 }

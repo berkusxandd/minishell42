@@ -29,28 +29,31 @@ t_pipeline *pipeline_init()
 	return pipeline;
 }
 
+
+
 char *two_signs_handler(char *input)
 {
 	int i;
 	char *new_input;
-
-	if (input[0] == '\0')
-		return NULL;
+	int q_type;
 	new_input = ft_strdup(input);
-	if (new_input == NULL)
+	if (!new_input)
 		return NULL;
 	i = 0;
 	while (new_input[i+1])
 	{
-		if (new_input[i] == '<' && new_input[i+1] == '<')
+		q_type = quote_check(new_input[i],q_type);
+		if (new_input[i] == '<' && new_input[i+1] == '<' && q_type != 1)
 		{
 			new_input[i] = -1;
 			new_input[i+1] = ' ';
-		}else if (new_input[i] == '>' && new_input[i+1] == '>')
+		}else if (new_input[i] == '>' && new_input[i+1] == '>' && q_type != 1)
 		{
 			new_input[i] = -2;
 			new_input[i+1] = ' ';
 		}
+		else if (new_input[i] == '$' && q_type != 1)
+			new_input[i] = -3;
 		i++;
 	}
 	return (new_input);
@@ -66,25 +69,40 @@ void free_pipeline(t_pipeline *pipeline)
 	int i;
 
 	i = 0;
-	while(pipeline->cmd[i])
-		free(pipeline->cmd[i++]);
+	if (pipeline->cmd)
+	{
+		while(pipeline->cmd[i])
+			free(pipeline->cmd[i++]);
 	free(pipeline->cmd);
+	}
 	i = 0;
-	while (pipeline->infiles[i])
-		free(pipeline->infiles[i++]);
-	free(pipeline->infiles);
+	if (pipeline->infiles)
+	{
+		while (pipeline->infiles[i])
+			free(pipeline->infiles[i++]);
+		free(pipeline->infiles);
+	}
 	i = 0;
-	while (pipeline->outfiles[i])
-		free(pipeline->outfiles[i++]);
-	free(pipeline->outfiles);
+	if (pipeline->outfiles)
+	{
+		while (pipeline->outfiles[i])
+			free(pipeline->outfiles[i++]);
+		free(pipeline->outfiles);
+	}
 	i = 0;
-	while (pipeline->outfiles_ext[i])
-		free(pipeline->outfiles_ext[i++]);
-	free(pipeline->outfiles_ext);
+	if (pipeline->outfiles_ext)
+	{
+		while (pipeline->outfiles_ext[i])
+			free(pipeline->outfiles_ext[i++]);
+		free(pipeline->outfiles_ext);
+	}
 	i = 0;
-	while (pipeline->here_docs[i])
-		free(pipeline->here_docs[i++]);
-	free(pipeline->here_docs);
+	if (pipeline->here_docs)
+	{
+		while (pipeline->here_docs[i])
+			free(pipeline->here_docs[i++]);
+		free(pipeline->here_docs);
+	}
 	free(pipeline);
 }
 
@@ -95,26 +113,32 @@ void free_all_pipelines(t_all_pipelines *all_pipelines)
 	i = 0;
 	if (!all_pipelines)
 		return ;
-	if (!all_pipelines->pipelines)
-		return ;
+	if (all_pipelines->pipelines)
+	{
 	while (all_pipelines->pipelines[i] != NULL)
 	{
 			free_pipeline(all_pipelines->pipelines[i]);
 			i++;
 	}
 	free(all_pipelines->pipelines);
+	}
 	free(all_pipelines);
 }
 int main()
 {
 	//char *test = ">a < aninfile <'a''a'   secind    < third cat Makefile >b | mem >>outfile > A > B > C > D | cat a >>extendedfile";
 	//char *test = "wc -l";
-	char *test = "cat '''file1' > file2 < file3 | infile < cat | grep text >> file4 | infile < cat | wc -l | sleep 3 | wc -c > outfile";
+	char *test = "cat '''file1' | infile < cat | grep text >> file4 | infile < cat | wc -l | sleep 3 | wc -c > outfile";
 	char *input = two_signs_handler(test);
+	int pipelines_succeed;
 	if (input == NULL)
 		error_exit();
-	t_all_pipelines *all_pipes = pipelines_creator(input);
+	t_all_pipelines *all_pipes = ft_calloc(sizeof(t_all_pipelines),1);
+	pipelines_succeed = pipelines_creator(all_pipes, input);
 	free(input);
-	printf("%s",all_pipes->pipelines[0]->cmd[1]);
+	if (pipelines_succeed != 0)
+		printf("%s",all_pipes->pipelines[0]->cmd[1]);
+	else
+		printf("pipeline error");
 	free_all_pipelines(all_pipes);
 }

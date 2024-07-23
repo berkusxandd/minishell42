@@ -19,6 +19,7 @@ typedef struct s_pipeline
 	char **outfiles_ext;
 	char **here_docs;
 	char **cmd;
+
 } t_pipeline;
 
 typedef struct s_all_pipelines
@@ -32,10 +33,10 @@ typedef struct s_vector2
 	int j;
 } t_vector2;
 
-typedef struct s_minishell
+typedef struct s_core
 {
-
-} 
+	t_all_pipelines *all_pipelines;
+}t_core;
 
 int is_set(char c);
 int is_token(char c);
@@ -46,7 +47,7 @@ char  **tokenization(t_nns **nns, char token);
 int count_tokens(char *input, char token);
 t_nns *gen_token(t_nns *nns_old, char token);
 int quote_check(char c, int quote_type);
-t_all_pipelines *pipelines_creator(char *input);
+int pipelines_creator(t_all_pipelines *all_pipes, char *input);
 t_pipeline *parser(char *input);
 void free_all_pipelines(t_all_pipelines *all_pipelines);
 void free_pipeline(t_pipeline *pipeline);
@@ -56,4 +57,7 @@ t_pipeline *pipeline_init();
 t_nns *nns_init(char *input);
 int count_quotes(char *str);
 char *quote_parser(char *str);
+void free_str_tab(char **tab);
+void free_nns(t_nns *nns);
+int error_0(char **str_tab);
 #endif

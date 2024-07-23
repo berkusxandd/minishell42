@@ -10,10 +10,15 @@ t_nns *gen_token(t_nns *nns_old, char token)
 	int quote_type;
 	quote_type = 0;
 	char *newstr = ft_strdup(nns_old->newstr);
+	//free_nns(nns_old);
+	if (!newstr)
+		return NULL;
 	nns = nns_init(newstr);
-	free(nns_old->name);
-	free(nns_old->newstr);
-	free(nns_old);
+	if (!nns)
+	{
+		free(newstr);
+		return NULL;
+	}
 	i = 0;
 	while (newstr[i])
 	{
@@ -37,7 +42,19 @@ t_nns *gen_token(t_nns *nns_old, char token)
 			{
 				free(nns->newstr);
 				nns->name = cut_str(newstr, i, j);
+				if (!nns->name)
+				{
+					free(newstr);
+					//free_nns(nns);
+					return NULL;
+				}
 				nns->newstr = delete_part(newstr,i,j,k);
+				if (!nns->newstr)
+				{
+					free(newstr);
+					//free_nns(nns);
+					return NULL;
+				}
 				free(newstr);
 			}
 			return nns;
@@ -74,14 +91,27 @@ char  **tokenization(t_nns **nns, char token)
 	char *quote_parsed_str;
 	i = 0;
 	token_count = count_tokens((*nns)->newstr,token);
-	tokens = malloc((token_count + 1) * sizeof(char*));
-	if (!token)
+	tokens = ft_calloc( sizeof(char*), (token_count + 1));
+	if (!tokens)
 		return NULL;
 	while(i < token_count)
 	{
 		*nns = gen_token(*nns,token);
+		if (!(*nns))
+		{
+			free_str_tab(tokens);
+			return NULL;
+		}
 		quote_parsed_str = quote_parser((*nns)->name);
 		tokens[i] = ft_strdup(quote_parsed_str);
+		if (!tokens[i])
+		{
+			free_str_tab(tokens);
+			free(quote_parsed_str);
+			//free_nns((*nns));
+			//free(nns);
+			return NULL;
+		}
 		free(quote_parsed_str);
 		i++;
 	}
