@@ -19,13 +19,13 @@ typedef struct s_pipeline
 	char **outfiles_ext;
 	char **here_docs;
 	char **cmd;
-
 } t_pipeline;
 
 typedef struct s_all_pipelines
 {
 	t_pipeline **pipelines;
 } t_all_pipelines;
+
 
 typedef struct s_vector2
 {
@@ -36,6 +36,7 @@ typedef struct s_vector2
 typedef struct s_core
 {
 	t_all_pipelines *all_pipelines;
+
 }t_core;
 
 int is_set(char c);
