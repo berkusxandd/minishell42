@@ -88,7 +88,6 @@ char  **tokenization(t_nns **nns, char token)
 	int token_count;
 	int i;
 	char **tokens;
-	char *quote_parsed_str;
 	i = 0;
 	token_count = count_tokens((*nns)->newstr,token);
 	tokens = ft_calloc( sizeof(char*), (token_count + 1));
@@ -102,17 +101,14 @@ char  **tokenization(t_nns **nns, char token)
 			free_str_tab(tokens);
 			return NULL;
 		}
-		quote_parsed_str = quote_parser((*nns)->name);
-		tokens[i] = ft_strdup(quote_parsed_str);
+		tokens[i] = ft_strdup((*nns)->name);
 		if (!tokens[i])
 		{
 			free_str_tab(tokens);
-			free(quote_parsed_str);
 			//free_nns((*nns));
 			//free(nns);
 			return NULL;
 		}
-		free(quote_parsed_str);
 		i++;
 	}
 	tokens[i] = NULL;

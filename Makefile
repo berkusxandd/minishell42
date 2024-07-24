@@ -1,5 +1,6 @@
 NAME = minishell
-SRCS = ./srcs/main.c  ./srcs/char_checks.c ./srcs/pipeline_parser.c ./srcs/quote_handler.c ./srcs/str_manipulations.c ./srcs/tokenization.c ./srcs/error_check.c
+SRCS = ./srcs/main.c  ./srcs/char_checks.c ./srcs/pipeline_parser.c ./srcs/quote_handler.c ./srcs/str_manipulations.c ./srcs/tokenization.c ./srcs/error_check.c ./srcs/expand_vars.c \
+       ./srcs/ft_lst.c ./srcs/env_part.c
 OBJS_DIR = ./objs
 OBJS = $(SRCS:./srcs/%.c=$(OBJS_DIR)/%.o)
 LIBFT = ./Libft/libft.a

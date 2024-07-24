@@ -1,36 +1,5 @@
 #include "../includes/minishell.h"
 
-char **cmd_quote_parser(char *res_str)
-{
-	char **raw_cmds;
-	char *tmp;
-	int i;
-
-	i = 0;
-	raw_cmds = ft_split(res_str,' ');
-	if (!raw_cmds)
-		return NULL;
-	while(raw_cmds[i])
-	{
-		tmp = ft_strdup(raw_cmds[i]);
-		if (!tmp)
-		{
-			free_str_tab(raw_cmds);
-			return NULL;
-		}
-		free(raw_cmds[i]);
-		raw_cmds[i] = quote_parser(tmp);
-		if (!raw_cmds[i])
-		{
-			free_str_tab(raw_cmds);
-			return NULL;
-		}
-		free(tmp);
-		i++;
-	}
-	return raw_cmds;
-}
-
 t_pipeline *parser(char *input)
 {
 	t_nns *nns;
@@ -69,7 +38,7 @@ t_pipeline *parser(char *input)
 		free_pipeline(pipeline);
 		return NULL;
 	}
-	pipeline->cmd = cmd_quote_parser(nns->newstr);
+	pipeline->cmd = ft_split(nns->newstr,' ');
 	free(nns->name);
 	free(nns->newstr);
 	free(nns);

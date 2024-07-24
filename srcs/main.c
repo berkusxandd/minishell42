@@ -37,6 +37,8 @@ char *two_signs_handler(char *input)
 	char *new_input;
 	int q_type;
 	new_input = ft_strdup(input);
+
+	q_type = 0;
 	if (!new_input)
 		return NULL;
 	i = 0;
@@ -124,12 +126,22 @@ void free_all_pipelines(t_all_pipelines *all_pipelines)
 	}
 	free(all_pipelines);
 }
-int main()
+
+
+int main(int argc, char **argv, char **env)
 {
+	(void)argc;
+	(void)argv;
+	t_data data;
+
+	init_data(&data, env);
 	//char *test = ">a < aninfile <'a''a'   secind    < third cat Makefile >b | mem >>outfile > A > B > C > D | cat a >>extendedfile";
 	//char *test = "wc -l";
-	char *test = "cat '''file1' | infile < cat | grep text >> file4 | infile < cat | wc -l | sleep 3 | wc -c > outfile";
+	char *test = "cat '''file1' $LOGNAME  $LOGNAME       | infile < cat | grep text >> file4 | infile < cat | wc -l | sleep 3 | wc -c > outfile";
 	char *input = two_signs_handler(test);
+	input = parse_input_args(input,data.env);
+	input = quote_parser(input);
+	printf("PARSED DATA : %s",input);
 	int pipelines_succeed;
 	if (input == NULL)
 		error_exit();
@@ -141,4 +153,7 @@ int main()
 	else
 		printf("pipeline error");
 	free_all_pipelines(all_pipes);
+	ft_env(data.env,NULL);
+	free_env(&(data.env));
+	//printf("\n %s \n",get_value("LOGNAME",data.env));
 }
