@@ -127,21 +127,73 @@ void free_all_pipelines(t_all_pipelines *all_pipelines)
 	free(all_pipelines);
 }
 
+void print_pipelines(t_all_pipelines *all_pipelines)
+{
+	int i = 0;
+	int j = 0;
+	while (all_pipelines->pipelines[i])
+	{
+		printf("---- pipeline - %d ------  \n", i);
+		printf("cmds \n");
+		while (all_pipelines->pipelines[i]->cmd[j])
+		{
+			printf("%s\n", all_pipelines->pipelines[i]->cmd[j]);
+			j++;
+		}
+		printf("\n");
+		j = 0;
+		printf("here_docs \n");
+		while (all_pipelines->pipelines[i]->here_docs[j])
+		{
+			printf("%s\n", all_pipelines->pipelines[i]->here_docs[j]);
+			j++;
+		}
+		j = 0;
+		printf("\n");
+		printf("infiles \n");
+		while (all_pipelines->pipelines[i]->infiles[j])
+		{
+			printf("%s\n", all_pipelines->pipelines[i]->infiles[j]);
+			j++;
+		}
+		j = 0;
+		printf("\n");
+		printf("outfiles \n");
+		while (all_pipelines->pipelines[i]->outfiles[j])
+		{
+			printf("%s\n", all_pipelines->pipelines[i]->outfiles[j]);
+			j++;
+		}
+		i++;
+		printf("--------------------\n");
+	}
+}
+
 
 int main(int argc, char **argv, char **env)
 {
+	char *input_raw;
 	(void)argc;
 	(void)argv;
 	t_data data;
 
 	init_data(&data, env);
-	//char *test = ">a < aninfile <'a''a'   secind    < third cat Makefile >b | mem >>outfile > A > B > C > D | cat a >>extendedfile";
-	//char *test = "wc -l";
-	char *test = "cat '''file1' $LOGNAME  $LOGNAME       | infile < cat | grep text >> file4 | infile < cat | wc -l | sleep 3 | wc -c > outfile";
-	char *input = two_signs_handler(test);
+    while (1) {
+        input_raw = readline("minishell> ");
+
+        if (input_raw == NULL) {
+            printf("\nExiting...\n");
+            break;
+        }
+
+        if (*input_raw) {
+            add_history(input_raw);
+        }
+	if (input_raw[0] != '\0')
+	{
+	char *input = two_signs_handler(input_raw);
 	input = parse_input_args(input,data.env);
 	input = quote_parser(input);
-	printf("PARSED DATA : %s",input);
 	int pipelines_succeed;
 	if (input == NULL)
 		error_exit();
@@ -149,11 +201,14 @@ int main(int argc, char **argv, char **env)
 	pipelines_succeed = pipelines_creator(all_pipes, input);
 	free(input);
 	if (pipelines_succeed != 0)
-		printf("%s",all_pipes->pipelines[0]->cmd[1]);
+		print_pipelines(all_pipes);
 	else
 		printf("pipeline error");
 	free_all_pipelines(all_pipes);
-	ft_env(data.env,NULL);
+	//ft_env(data.env,NULL);
+    free(input_raw);
+	}
+    }
 	free_env(&(data.env));
-	//printf("\n %s \n",get_value("LOGNAME",data.env));
+    clear_history();
 }

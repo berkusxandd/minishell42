@@ -1,5 +1,5 @@
 NAME = minishell
-SRCS = ./srcs/main.c  ./srcs/char_checks.c ./srcs/pipeline_parser.c ./srcs/quote_handler.c ./srcs/str_manipulations.c ./srcs/tokenization.c ./srcs/error_check.c ./srcs/expand_vars.c \
+SRCS = ./srcs/main.c  ./srcs/char_checks.c ./srcs/pipeline_parser.c ./srcs/quote_handler.c ./srcs/str_manipulations.c ./srcs/tokenization.c ./srcs/error_check.c ./srcs/expand_vars.c ./srcs/read_input.c \
        ./srcs/ft_lst.c ./srcs/env_part.c
 OBJS_DIR = ./objs
 OBJS = $(SRCS:./srcs/%.c=$(OBJS_DIR)/%.o)
@@ -24,7 +24,7 @@ $(OBJS_DIR)/%.o: ./srcs/%.c | $(OBJS_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(LIBFT) -o $(NAME)
+	@$(CC) $(OBJS) $(LIBFT) -lreadline -o $(NAME)
 	@echo "$(GREEN)minishell compiled"
 
 clean:

@@ -90,4 +90,5 @@ char *get_value(char *varname, t_list *env);
 char *parse_input_args(char *input,t_list *env);
 void	free_env(t_list **env);
 
+void read_input();
 #endif
