@@ -41,7 +41,7 @@ t_nns *gen_token(t_nns *nns_old, char token)
 			if (i != j)
 			{
 				free(nns->newstr);
-				nns->name = cut_str(newstr, i, j);
+				nns->name = quote_parser(cut_str(newstr, i, j));
 				if (!nns->name)
 				{
 					free(newstr);

@@ -1,5 +1,6 @@
 #include "../includes/minishell.h"
 
+
 t_pipeline *parser(char *input)
 {
 	t_nns *nns;
@@ -38,7 +39,8 @@ t_pipeline *parser(char *input)
 		free_pipeline(pipeline);
 		return NULL;
 	}
-	pipeline->cmd = ft_split(nns->newstr,' ');
+	//pipeline->cmd = ft_split(nns->newstr,' ');
+	pipeline->cmd = cmd_quote_parse(nns->newstr);
 	free(nns->name);
 	free(nns->newstr);
 	free(nns);

@@ -47,6 +47,7 @@ typedef struct s_list
 	struct s_list	*prev;
 	struct s_list	*next;
 }t_list;
+
 typedef struct s_data
 {
 	char			**path;
@@ -91,4 +92,6 @@ char *parse_input_args(char *input,t_list *env);
 void	free_env(t_list **env);
 
 void read_input();
+int is_exit(char *str);
+char **cmd_quote_parse(char *str);
 #endif
