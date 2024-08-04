@@ -132,6 +132,7 @@ char *quote_parser(char *str)
 	if (!quote_indexes)
 		return NULL;
 	char *parsed_str = generate_str_wo_quotes(str, quote_indexes);
+	free(str);
 	if (!parsed_str)
 		free(quote_indexes);
 	return parsed_str;

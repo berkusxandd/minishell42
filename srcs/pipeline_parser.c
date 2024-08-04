@@ -39,18 +39,12 @@ t_pipeline *parser(char *input)
 		free_pipeline(pipeline);
 		return NULL;
 	}
-	//pipeline->cmd = ft_split(nns->newstr,' ');
 	pipeline->cmd = cmd_quote_parse(nns->newstr);
-	free(nns->name);
 	free(nns->newstr);
 	free(nns);
 	return pipeline;
 }
 
-void all_pipelines_init(t_core *core)
-{
-	core->all_pipelines->pipelines = NULL;
-}
 
 int pipelines_creator(t_all_pipelines *all_pipes, char *input)
 {

@@ -6,21 +6,27 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 17:56:40 by bince             #+#    #+#             */
-/*   Updated: 2024/07/24 16:35:28 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/04 18:03:21 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "libft.h"
-#include <stdlib.h>
 
-t_list	*ft_lstnew(void *content)
+t_list	*ft_lstnew(char *var, char *value)
 {
-	t_list	*node;
+	t_list	*new;
 
-	node = malloc(sizeof(*node));
-	if (!node)
+	new = malloc(sizeof(t_list));
+	if (new == NULL)
 		return (NULL);
-	node->content = content;
-	node->next = NULL;
-	return (node);
+	new->var = NULL;
+	new->value = NULL;
+	if (var)
+		new->var = ft_strdup(var);
+	if (value)
+		new->value = ft_strdup(value);
+	new->prev = NULL;
+	new->next = NULL;
+	return (new);
 }

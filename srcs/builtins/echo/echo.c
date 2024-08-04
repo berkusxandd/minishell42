@@ -1,27 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/10 17:55:53 by bince             #+#    #+#             */
-/*   Updated: 2024/08/04 18:06:27 by bince            ###   ########.fr       */
+/*   Created: 2024/07/01 23:07:53 by mel-yand          #+#    #+#             */
+/*   Updated: 2024/08/04 17:41:44 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "libft.h"
+#include "../../../includes/minishell.h"
 
-// void	ft_lstclear(t_list **lst, void (*del)(void *))
-// {
-// 	t_list	*tmp;
+void	ft_echo(char **arg)
+{
+	int	i;
+	int n;
 
-// 	if (!del || !lst || !*lst)
-// 		return ;
-// 	while (lst && *lst)
-// 	{
-// 		tmp = (*lst)->next;
-// 		ft_lstdelone(*lst, del);
-// 		*lst = tmp;
-// 	}
-// }
+	i = 1;
+	n = 0;
+	if (arg[1] == NULL)
+	{
+		ft_putchar_fd('\n', 1);
+		return ;
+	}
+	while (arg[i] && ft_strncmp(arg[i], "-n", 3) == 0)
+	{
+		i++;
+		n++;
+	}
+	while (arg[i])
+	{
+		ft_putstr_fd(arg[i], 1);
+		if (arg[i] && arg[i + 1])
+			ft_putchar_fd(' ', 1);
+		i++;
+	}
+	if (n == 0)
+		ft_putchar_fd('\n', 1);
+	/*STATUS == 0*/
+}

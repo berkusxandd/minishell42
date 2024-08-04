@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bince < bince@student.42.fr >              +#+  +:+       +#+        */
+/*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 17:29:25 by bince             #+#    #+#             */
-/*   Updated: 2023/11/13 14:26:33 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/04 17:49:32 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,16 @@
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_list	*first;
+	t_list	*last;
 
-	first = *lst;
-	if (!lst)
+	if (lst == NULL || new == NULL)
 		return ;
-	if (!*lst)
+	if (*lst != NULL)
 	{
+		last = ft_lstlast(*lst);
+		last->next = new;
+		new->prev = last;
+	}
+	else
 		*lst = new;
-		return ;
-	}
-	while ((*lst)->next != NULL)
-	{
-		*lst = (*lst)->next;
-	}
-	(*lst)->next = new;
-	*lst = first;
 }

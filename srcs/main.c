@@ -26,6 +26,8 @@ t_pipeline *pipeline_init()
 	pipeline->outfiles = NULL;
 	pipeline->outfiles_ext = NULL;
 	pipeline->here_docs = NULL;
+	pipeline->infile_fd = 0;
+	pipeline->outfile_fd = 1;
 	return pipeline;
 }
 
@@ -64,66 +66,7 @@ void error_exit()
 	exit(-1);
 }
 
-void free_pipeline(t_pipeline *pipeline)
-{
-	int i;
 
-	i = 0;
-	if (pipeline->cmd)
-	{
-		while(pipeline->cmd[i])
-			free(pipeline->cmd[i++]);
-	free(pipeline->cmd);
-	}
-	i = 0;
-	if (pipeline->infiles)
-	{
-		while (pipeline->infiles[i])
-			free(pipeline->infiles[i++]);
-		free(pipeline->infiles);
-	}
-	i = 0;
-	if (pipeline->outfiles)
-	{
-		while (pipeline->outfiles[i])
-			free(pipeline->outfiles[i++]);
-		free(pipeline->outfiles);
-	}
-	i = 0;
-	if (pipeline->outfiles_ext)
-	{
-		while (pipeline->outfiles_ext[i])
-			free(pipeline->outfiles_ext[i++]);
-		free(pipeline->outfiles_ext);
-	}
-	i = 0;
-	if (pipeline->here_docs)
-	{
-		while (pipeline->here_docs[i])
-			free(pipeline->here_docs[i++]);
-		free(pipeline->here_docs);
-	}
-	free(pipeline);
-}
-
-void free_all_pipelines(t_all_pipelines *all_pipelines)
-{
-	int i;
-
-	i = 0;
-	if (!all_pipelines)
-		return ;
-	if (all_pipelines->pipelines)
-	{
-	while (all_pipelines->pipelines[i] != NULL)
-	{
-			free_pipeline(all_pipelines->pipelines[i]);
-			i++;
-	}
-	free(all_pipelines->pipelines);
-	}
-	free(all_pipelines);
-}
 
 void print_pipelines(t_all_pipelines *all_pipelines)
 {
@@ -131,6 +74,7 @@ void print_pipelines(t_all_pipelines *all_pipelines)
 	int j = 0;
 	while (all_pipelines->pipelines[i])
 	{
+		j = 0;
 		printf("---- pipeline - %d ------  \n", i);
 		printf("cmds \n");
 		while (all_pipelines->pipelines[i]->cmd[j])
@@ -167,7 +111,6 @@ void print_pipelines(t_all_pipelines *all_pipelines)
 	}
 }
 
-
 int main(int argc, char **argv, char **env)
 {
 	char *input_raw;
@@ -175,43 +118,81 @@ int main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	(void)env;
-	t_data data;
+	t_data core;
 	t_all_pipelines *all_pipes;
 	int pipelines_succeed;
-
-	init_data(&data, env);
-    while (1) 
-	{
+   int original_stdin = dup(STDIN_FILENO);
+    int original_stdout = dup(STDOUT_FILENO);
+	init_data(&core, env);
         input_raw = readline("minishell> ");
+    while (1)
+	{
         if (input_raw == NULL) {
-            printf("\nExiting...\n");
+            ft_putstr_fd("exiting...",2);
             break;
-        }
-        if (*input_raw) {
-            add_history(input_raw);
         }
 		if (is_exit(input_raw) == 0)
 		{
 			free(input_raw);
 			break;
 		}
+        if (*input_raw) {
+            add_history(input_raw);
+        }
 		if (input_raw[0] != '\0')
 		{
 			input = two_signs_handler(input_raw);
     		free(input_raw);
-			input = parse_input_args(input,data.env);
-			if (input == NULL)
-				error_exit();
+			input = parse_input_args(input,core.env);
+			// if (input == NULL)
+			// {
+			// 	ft_putstr_fd("input null",2);
+			// 	error_exit();
+			// }
 			all_pipes = ft_calloc(sizeof(t_all_pipelines),1);
 			pipelines_succeed = pipelines_creator(all_pipes, input);
 			free(input);
 			if (pipelines_succeed == 0)
 				ft_putstr_fd("pipeline error\n",1);
-			
-			print_pipelines(all_pipes);
-			free_all_pipelines(all_pipes);
+			core.all_pipes = all_pipes;
+			execution(&core);
+			print_pipelines(core.all_pipes);
+			dup2(original_stdin, STDIN_FILENO);
+		dup2(original_stdout, STDOUT_FILENO);
 		}
+        input_raw = readline("minishell> ");
     }
-	free_env(&(data.env));
+	//free_env(&(data.env));
     clear_history();
 }
+
+// int main(int argc, char **argv, char **env)
+// {
+// 	char *input;
+// 	(void)argc;
+// 	(void)argv;
+// 	(void)env;
+// 	t_data data;
+// 	t_all_pipelines *all_pipes;
+// 	int pipelines_succeed;
+
+// 	init_data(&data, env);
+
+// 	input = ">a < aninfile <'a''a'   secind    < third cat Makefile >b | mem >>outfile > A > B > C > D | cat a >>extendedfile";
+// 	//input = "\"|||\"\";fsdlkfjslkjdf;;;\"";
+// 	input = two_signs_handler(input);
+// 	input = parse_input_args(input,data.env);
+// 	if (input == NULL)
+// 		error_exit();
+// 	all_pipes = ft_calloc(sizeof(t_all_pipelines),1);
+// 	pipelines_succeed = pipelines_creator(all_pipes, input);
+// 	free(input);
+// 	if (pipelines_succeed == 0)
+// 	{
+// 		ft_putstr_fd("pipeline error\n",1);
+// 	}
+// 	print_pipelines(all_pipes);
+// 	free_all_pipelines(all_pipes);
+// 	free_env(&(data.env));
+//     clear_history();
+// }

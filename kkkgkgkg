@@ -1,0 +1,1407 @@
+a
+AVANT DUP2: cmd = echo
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+echo
+a
+
+here_docs 
+
+infiles 
+Makefile
+
+outfiles 
+kkkgkgkg
+--------------------
+---- pipeline - 1 ------  
+cmds 
+echo
+b
+
+here_docs 
+
+infiles 
+Makefile
+
+outfiles 
+ssssssssss
+--------------------
+minishell> NAME = minishell
+AVANT DUP2: cmd = NAME
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+NAME
+=
+minishell
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> SRCS = ./srcs/main.c  ./srcs/char_checks.c ./srcs/pipeline_parser.c ./srcs/quote_handler.c ./srcs/str_manipulations.c ./srcs/tokenization.c ./srcs/error_check.c ./srcs/expand_vars.c  ./srcs/ft_cmd_split.c ./srcs/free_all_pipelines.c  \
+AVANT DUP2: cmd = SRCS
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+SRCS
+=
+./srcs/main.c
+./srcs/char_checks.c
+./srcs/pipeline_parser.c
+./srcs/quote_handler.c
+./srcs/str_manipulations.c
+./srcs/tokenization.c
+./srcs/error_check.c
+./srcs/expand_vars.c
+./srcs/ft_cmd_split.c
+./srcs/free_all_pipelines.c
+\
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell>    srcs/builtins/cd/cd.c\
+AVANT DUP2: cmd = srcs/builtins/cd/cd.c\
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+srcs/builtins/cd/cd.c\
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+.git/           a               hh              objs/           srcs/           xz
+A               ab              includes/       oooo            ssssssssss      
+B               b               kkk             ooossssss       test inputs     
+C               belge           kkkgkgkg        outfileeasdasd  tryyy           
+Libft/          c               main_with_rl.c  outfileee       xa              
+Makefile        gj              minishell       selam           xb              
+minishell> srcs/builtins/echo/echo.c\
+AVANT DUP2: cmd = srcs/builtins/echo/echo.c\
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+srcs/builtins/echo/echo.c\
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+.git/           a               hh              objs/           srcs/           xz
+A               ab              includes/       oooo            ssssssssss      
+B               b               kkk             ooossssss       test inputs     
+C               belge           kkkgkgkg        outfileeasdasd  tryyy           
+Libft/          c               main_with_rl.c  outfileee       xa              
+Makefile        gj              minishell       selam           xb              
+minishell> srcs/builtins/env/env.c\
+AVANT DUP2: cmd = srcs/builtins/env/env.c\
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+srcs/builtins/env/env.c\
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+.git/           a               hh              objs/           srcs/           xz
+A               ab              includes/       oooo            ssssssssss      
+B               b               kkk             ooossssss       test inputs     
+C               belge           kkkgkgkg        outfileeasdasd  tryyy           
+Libft/          c               main_with_rl.c  outfileee       xa              
+Makefile        gj              minishell       selam           xb              
+minishell> srcs/builtins/export/export.c\
+AVANT DUP2: cmd = srcs/builtins/export/export.c\
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+srcs/builtins/export/export.c\
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+.git/           a               hh              objs/           srcs/           xz
+A               ab              includes/       oooo            ssssssssss      
+B               b               kkk             ooossssss       test inputs     
+C               belge           kkkgkgkg        outfileeasdasd  tryyy           
+Libft/          c               main_with_rl.c  outfileee       xa              
+Makefile        gj              minishell       selam           xb              
+minishell> srcs/builtins/export/export_utils.c\
+AVANT DUP2: cmd = srcs/builtins/export/export_utils.c\
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+srcs/builtins/export/export_utils.c\
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+.git/           a               hh              objs/           srcs/           xz
+A               ab              includes/       oooo            ssssssssss      
+B               b               kkk             ooossssss       test inputs     
+C               belge           kkkgkgkg        outfileeasdasd  tryyy           
+Libft/          c               main_with_rl.c  outfileee       xa              
+Makefile        gj              minishell       selam           xb              
+minishell> srcs/builtins/pwd/pwd.c\
+AVANT DUP2: cmd = srcs/builtins/pwd/pwd.c\
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+srcs/builtins/pwd/pwd.c\
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+.git/           a               hh              objs/           srcs/           xz
+A               ab              includes/       oooo            ssssssssss      
+B               b               kkk             ooossssss       test inputs     
+C               belge           kkkgkgkg        outfileeasdasd  tryyy           
+Libft/          c               main_with_rl.c  outfileee       xa              
+Makefile        gj              minishell       selam           xb              
+minishell> srcs/builtins/unset/unset.c\
+AVANT DUP2: cmd = srcs/builtins/unset/unset.c\
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+srcs/builtins/unset/unset.c\
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+.git/           a               hh              objs/           srcs/           xz
+A               ab              includes/       oooo            ssssssssss      
+B               b               kkk             ooossssss       test inputs     
+C               belge           kkkgkgkg        outfileeasdasd  tryyy           
+Libft/          c               main_with_rl.c  outfileee       xa              
+Makefile        gj              minishell       selam           xb              
+minishell> srcs/init/init_data.c\
+AVANT DUP2: cmd = srcs/init/init_data.c\
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+srcs/init/init_data.c\
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+.git/           a               hh              objs/           srcs/           xz
+A               ab              includes/       oooo            ssssssssss      
+B               b               kkk             ooossssss       test inputs     
+C               belge           kkkgkgkg        outfileeasdasd  tryyy           
+Libft/          c               main_with_rl.c  outfileee       xa              
+Makefile        gj              minishell       selam           xb              
+minishell> srcs/utils/free_fonction.c\
+AVANT DUP2: cmd = srcs/utils/free_fonction.c\
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+srcs/utils/free_fonction.c\
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+.git/           a               hh              objs/           srcs/           xz
+A               ab              includes/       oooo            ssssssssss      
+B               b               kkk             ooossssss       test inputs     
+C               belge           kkkgkgkg        outfileeasdasd  tryyy           
+Libft/          c               main_with_rl.c  outfileee       xa              
+Makefile        gj              minishell       selam           xb              
+minishell> srcs/executions/builtin_exec.c\
+AVANT DUP2: cmd = srcs/executions/builtin_exec.c\
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+srcs/executions/builtin_exec.c\
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+.git/           a               hh              objs/           srcs/           xz
+A               ab              includes/       oooo            ssssssssss      
+B               b               kkk             ooossssss       test inputs     
+C               belge           kkkgkgkg        outfileeasdasd  tryyy           
+Libft/          c               main_with_rl.c  outfileee       xa              
+Makefile        gj              minishell       selam           xb              
+minishell> srcs/executions/file_handler.c\
+AVANT DUP2: cmd = srcs/executions/file_handler.c\
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+srcs/executions/file_handler.c\
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+.git/           a               hh              objs/           srcs/           xz
+A               ab              includes/       oooo            ssssssssss      
+B               b               kkk             ooossssss       test inputs     
+C               belge           kkkgkgkg        outfileeasdasd  tryyy           
+Libft/          c               main_with_rl.c  outfileee       xa              
+Makefile        gj              minishell       selam           xb              
+minishell> srcs/executions/init_exec.c\
+AVANT DUP2: cmd = srcs/executions/init_exec.c\
+ stdin = 1701273966
+ stfout = 1699950450
+---- pipeline - 0 ------  
+cmds 
+srcs/executions/init_exec.c\
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+.git/           a               hh              objs/           srcs/           xz
+A               ab              includes/       oooo            ssssssssss      
+B               b               kkk             ooossssss       test inputs     
+C               belge           kkkgkgkg        outfileeasdasd  tryyy           
+Libft/          c               main_with_rl.c  outfileee       xa              
+Makefile        gj              minishell       selam           xb              
+minishell> srcs/executions/utils_exec.c\
+AVANT DUP2: cmd = srcs/executions/utils_exec.c\
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+srcs/executions/utils_exec.c\
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+.git/           a               hh              objs/           srcs/           xz
+A               ab              includes/       oooo            ssssssssss      
+B               b               kkk             ooossssss       test inputs     
+C               belge           kkkgkgkg        outfileeasdasd  tryyy           
+Libft/          c               main_with_rl.c  outfileee       xa              
+Makefile        gj              minishell       selam           xb              
+minishell> srcs/executions/utils_pipeline.c
+AVANT DUP2: cmd = srcs/executions/utils_pipeline.c
+ stdin = 1851870585
+ stfout = 1919248225
+---- pipeline - 0 ------  
+cmds 
+srcs/executions/utils_pipeline.c
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> OBJS_DIR = ./objs
+AVANT DUP2: cmd = OBJS_DIR
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+OBJS_DIR
+=
+./objs
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> OBJS = $(SRCS:./srcs/%.c=$(OBJS_DIR)/%.o)
+AVANT DUP2: cmd = OBJS
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+OBJS
+=
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> LIBFT = ./Libft/libft.a
+AVANT DUP2: cmd = LIBFT
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+LIBFT
+=
+./Libft/libft.a
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> CC = gcc
+AVANT DUP2: cmd = CC
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+CC
+=
+gcc
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> CFLAGS = -Wall -Werror -Wextra
+AVANT DUP2: cmd = CFLAGS
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+CFLAGS
+=
+-Wall
+-Werror
+-Wextra
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> RM = rm -rf
+AVANT DUP2: cmd = RM
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+RM
+=
+rm
+-rf
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+minishell> GREEN = \033[0;92m
+AVANT DUP2: cmd = GREEN
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+GREEN
+=
+\033[0;92m
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> BLUE = \033[0;94m
+AVANT DUP2: cmd = BLUE
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+BLUE
+=
+\033[0;94m
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+minishell> all: makelibs $(NAME)
+AVANT DUP2: cmd = all:
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+all:
+makelibs
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+minishell> makelibs:
+AVANT DUP2: cmd = makelibs:
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+makelibs:
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> @make bonus -C ./Libft
+AVANT DUP2: cmd = @make
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+@make
+bonus
+-C
+./Libft
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> @echo "$(BLUE)**libft compiled"
+AVANT DUP2: cmd = @echo
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+@echo
+ compiled
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+minishell> $(OBJS_DIR):
+minishell> @mkdir -p $(OBJS_DIR)
+AVANT DUP2: cmd = @mkdir
+ stdin = 1851870585
+ stfout = 1919248225
+---- pipeline - 0 ------  
+cmds 
+@mkdir
+-p
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+minishell> $(OBJS_DIR)/%.o: ./srcs/%.c | $(OBJS_DIR)
+pipe creer index 0
+pipe0=3, pipe1=4
+AVANT DUP2: cmd = ./srcs/%.c
+ stdin = -1
+ stfout = 4
+AVANT DUP2: cmd = ý(OBJS_DIR)
+ stdin = 3
+ stfout = 1919248225
+---- pipeline - 0 ------  
+cmds 
+./srcs/%.c
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+---- pipeline - 1 ------  
+cmds 
+ý(OBJS_DIR)
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> AVANT DUP2: cmd = ý(OBJS_DIR)
+ stdin = 3
+ stfout = 1919248225
+
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+./srcs/%.c
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+---- pipeline - 1 ------  
+cmds 
+ý(OBJS_DIR)
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+./srcs/%.c
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+---- pipeline - 1 ------  
+cmds 
+ý(OBJS_DIR)
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> @$(CC) $(CFLAGS) -c $< -o $@
+AVANT DUP2: cmd = @
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+@
+ý(CFLAGS)
+-c
+-o
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+minishell> $(NAME): $(OBJS)
+AVANT DUP2: cmd = ý(OBJS)
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+ý(OBJS)
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> @$(CC) $(OBJS) $(LIBFT) -lreadline -o $(NAME)
+AVANT DUP2: cmd = @
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+@
+ý(OBJS)
+-lreadline
+-o
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> @echo "$(GREEN)minishell compiled"
+AVANT DUP2: cmd = @echo
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+@echo
+ compiled
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+minishell> clean:
+AVANT DUP2: cmd = clean:
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+clean:
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> $(RM) $(OBJS_DIR)
+AVANT DUP2: cmd = ý(OBJS_DIR)
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+ý(OBJS_DIR)
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> @make clean -C ./Libft
+AVANT DUP2: cmd = @make
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+@make
+clean
+-C
+./Libft
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+minishell> fclean: clean
+AVANT DUP2: cmd = fclean:
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+fclean:
+clean
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> $(RM) $(NAME)
+AVANT DUP2: cmd = ý(NAME)
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+ý(NAME)
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> @make fclean -C ./Libft
+AVANT DUP2: cmd = @make
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+@make
+fclean
+-C
+./Libft
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+minishell> re: fclean all
+AVANT DUP2: cmd = re:
+ stdin = -1
+ stfout = -1
+---- pipeline - 0 ------  
+cmds 
+re:
+fclean
+all
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+re:
+fclean
+all
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+@make
+fclean
+-C
+./Libft
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+ý(NAME)
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+fclean:
+clean
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+@make
+clean
+-C
+./Libft
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+ý(OBJS_DIR)
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+clean:
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+@echo
+ compiled
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+@
+ý(OBJS)
+-lreadline
+-o
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+ý(OBJS)
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+@
+ý(CFLAGS)
+-c
+-o
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+./srcs/%.c
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+---- pipeline - 1 ------  
+cmds 
+ý(OBJS_DIR)
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+@mkdir
+-p
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+@echo
+ compiled
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+@make
+bonus
+-C
+./Libft
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+makelibs:
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+all:
+makelibs
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+BLUE
+=
+\033[0;94m
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+GREEN
+=
+\033[0;92m
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+RM
+=
+rm
+-rf
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+CFLAGS
+=
+-Wall
+-Werror
+-Wextra
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+CC
+=
+gcc
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+LIBFT
+=
+./Libft/libft.a
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+OBJS
+=
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+OBJS_DIR
+=
+./objs
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+srcs/executions/utils_pipeline.c
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+srcs/executions/utils_exec.c\
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+srcs/executions/init_exec.c\
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+srcs/executions/file_handler.c\
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+srcs/executions/builtin_exec.c\
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+srcs/utils/free_fonction.c\
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+srcs/init/init_data.c\
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+srcs/builtins/unset/unset.c\
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+srcs/builtins/pwd/pwd.c\
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+srcs/builtins/export/export_utils.c\
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+srcs/builtins/export/export.c\
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+srcs/builtins/env/env.c\
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+srcs/builtins/echo/echo.c\
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+srcs/builtins/cd/cd.c\
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+SRCS
+=
+./srcs/main.c
+./srcs/char_checks.c
+./srcs/pipeline_parser.c
+./srcs/quote_handler.c
+./srcs/str_manipulations.c
+./srcs/tokenization.c
+./srcs/error_check.c
+./srcs/expand_vars.c
+./srcs/ft_cmd_split.c
+./srcs/free_all_pipelines.c
+\
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+NAME
+=
+minishell
+
+here_docs 
+
+infiles 
+
+outfiles 
+--------------------
+minishell> 
+Exiting...
+---- pipeline - 0 ------  
+cmds 
+echo
+a
+
+here_docs 
+
+infiles 
+Makefile
+
+outfiles 
+kkkgkgkg
+--------------------
+---- pipeline - 1 ------  
+cmds 
+echo
+b
+
+here_docs 
+
+infiles 
+Makefile
+
+outfiles 
+ssssssssss
+--------------------
+minishell> 
+Exiting...

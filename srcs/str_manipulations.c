@@ -53,6 +53,8 @@ int is_exit(char *str)
 {
 	int len;
 
+	if (str == NULL)
+		return 1;
 	len = ft_strlen(str);
 	if (len != 4)
 		return 1;

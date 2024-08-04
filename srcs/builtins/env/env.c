@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/10 17:55:53 by bince             #+#    #+#             */
-/*   Updated: 2024/08/04 18:06:27 by bince            ###   ########.fr       */
+/*   Created: 2024/06/27 16:39:00 by mel-yand          #+#    #+#             */
+/*   Updated: 2024/08/04 17:41:47 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "libft.h"
+#include "../../../includes/minishell.h"
 
-// void	ft_lstclear(t_list **lst, void (*del)(void *))
-// {
-// 	t_list	*tmp;
-
-// 	if (!del || !lst || !*lst)
-// 		return ;
-// 	while (lst && *lst)
-// 	{
-// 		tmp = (*lst)->next;
-// 		ft_lstdelone(*lst, del);
-// 		*lst = tmp;
-// 	}
-// }
+void	ft_env(t_list *env, char **cmd)
+{
+	if (cmd != NULL && cmd[1] != NULL)
+	{
+		ft_putstr_fd("env does not take arguments\n", 2);
+		/*Change status to 127*/
+		return ;
+	}
+	while (env)
+	{
+		if (env->value != NULL)
+		{
+			ft_putstr_fd(env->var, 1);
+			ft_putstr_fd("=", 1);
+			ft_putstr_fd(env->value, 1);
+			ft_putstr_fd("\n", 1);
+		}
+		env = env->next;
+	}
+}

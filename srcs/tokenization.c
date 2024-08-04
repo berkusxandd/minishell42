@@ -1,66 +1,84 @@
 #include "../includes/minishell.h"
 
-t_nns *gen_token(t_nns *nns_old, char token)
+void free_nns(t_nns *nns)
 {
+	if (nns)
+	{
+		free(nns->name);
+		free(nns->newstr);
+		free(nns);
+	}
+}
+
+t_nns *find_token(t_nns *nns, char token)
+{
+	int quote_type;
 	int i;
 	int j;
 	int k;
-
-	t_nns *nns;
-	int quote_type;
-	quote_type = 0;
-	char *newstr = ft_strdup(nns_old->newstr);
-	//free_nns(nns_old);
-	if (!newstr)
-		return NULL;
-	nns = nns_init(newstr);
-	if (!nns)
-	{
-		free(newstr);
-		return NULL;
-	}
+	char *tmp;
 	i = 0;
-	while (newstr[i])
+	quote_type = 0;
+	while (nns->newstr[i])
 	{
-		quote_type = quote_check(newstr[i], quote_type);
-		if (newstr[i] == token && quote_type == 0)
+		quote_type = quote_check(nns->newstr[i], quote_type);
+		if (nns->newstr[i] == token && quote_type == 0)
 		{
 			k = i;
 			i++;
-			quote_type = quote_check(newstr[i], quote_type);
-			while(is_set(newstr[i]) == 1 && newstr[i] && quote_type == 0)
+			quote_type = quote_check(nns->newstr[i], quote_type);
+			while(is_set(nns->newstr[i]) == 1 && nns->newstr[i] && quote_type == 0)
 				i++;
 			if (k != i - 1)
-				quote_type = quote_check(newstr[i], quote_type);
+				quote_type = quote_check(nns->newstr[i], quote_type);
 			j = i;
-			while(newstr[i] != '\0' && ( (quote_type != 0) || (is_token(newstr[i]) == 0 && is_set(newstr[i]) == 0)))
+			while(nns->newstr[i] != '\0' && ( (quote_type != 0) || (is_token(nns->newstr[i]) == 0 && is_set(nns->newstr[i]) == 0)))
 			{
 				i++;
-				quote_type = quote_check(newstr[i], quote_type);
+				quote_type = quote_check(nns->newstr[i], quote_type);
 			}
 			if (i != j)
 			{
-				free(nns->newstr);
-				nns->name = quote_parser(cut_str(newstr, i, j));
+				nns->name = quote_parser(cut_str(nns->newstr, i, j));
 				if (!nns->name)
 				{
-					free(newstr);
-					//free_nns(nns);
+					free_nns(nns);
 					return NULL;
 				}
-				nns->newstr = delete_part(newstr,i,j,k);
+				tmp = nns->newstr;
+				nns->newstr = delete_part(tmp,i,j,k);
+				free(tmp);
 				if (!nns->newstr)
 				{
-					free(newstr);
-					//free_nns(nns);
+					free_nns(nns);
 					return NULL;
 				}
-				free(newstr);
 			}
 			return nns;
 		}
 		i++;
 	}
+	return nns;
+}
+
+t_nns *gen_token(t_nns *nns_old, char token)
+{
+	t_nns *nns;
+	char *newstr;
+
+	newstr = ft_strdup(nns_old->newstr);
+	free(nns_old->newstr);
+	free(nns_old);
+	if (!newstr)
+		return NULL;
+	nns = nns_init(newstr);
+	free(newstr);
+	if (!nns)
+	{
+		free(newstr);
+		return NULL;
+	}
+	nns = find_token(nns, token);
 	return nns;
 }
 
@@ -102,11 +120,12 @@ char  **tokenization(t_nns **nns, char token)
 			return NULL;
 		}
 		tokens[i] = ft_strdup((*nns)->name);
+		free((*nns)->name);
 		if (!tokens[i])
 		{
 			free_str_tab(tokens);
-			//free_nns((*nns));
-			//free(nns);
+			free_nns((*nns));
+			free(nns);
 			return NULL;
 		}
 		i++;
