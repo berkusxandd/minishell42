@@ -10,13 +10,48 @@ void free_nns(t_nns *nns)
 	}
 }
 
+int put_contents_to_nns(t_nns *nns, int i, int j, int k)
+{
+	char *tmp;
+
+	nns->name = quote_parser(cut_str(nns->newstr, i, j));
+	if (!nns->name)
+	{
+		free_nns(nns);
+		return 0;
+	}
+	tmp = nns->newstr;
+	nns->newstr = delete_part(tmp,i,j,k);
+	free(tmp);
+	if (!nns->newstr)
+	{
+	free_nns(nns);
+	return 0;
+	}
+	return 1;
+}
+
+int space_skip(t_nns *nns, int *quote_type, int i,int k)
+{
+	int local_quote_type;
+
+	local_quote_type = *quote_type;
+	*quote_type = quote_check(nns->newstr[i], local_quote_type);
+	local_quote_type = *quote_type;
+	while(is_set(nns->newstr[i]) == 1 && nns->newstr[i] && local_quote_type == 0)
+		i++;
+	if (k != i - 1)
+		*quote_type = quote_check(nns->newstr[i], local_quote_type);
+	return i;
+}
+
 t_nns *find_token(t_nns *nns, char token)
 {
 	int quote_type;
 	int i;
 	int j;
 	int k;
-	char *tmp;
+
 	i = 0;
 	quote_type = 0;
 	while (nns->newstr[i])
@@ -24,35 +59,15 @@ t_nns *find_token(t_nns *nns, char token)
 		quote_type = quote_check(nns->newstr[i], quote_type);
 		if (nns->newstr[i] == token && quote_type == 0)
 		{
-			k = i;
-			i++;
-			quote_type = quote_check(nns->newstr[i], quote_type);
-			while(is_set(nns->newstr[i]) == 1 && nns->newstr[i] && quote_type == 0)
-				i++;
-			if (k != i - 1)
-				quote_type = quote_check(nns->newstr[i], quote_type);
+			k = i++;
+			i = space_skip(nns,&quote_type,i,k);
 			j = i;
 			while(nns->newstr[i] != '\0' && ( (quote_type != 0) || (is_token(nns->newstr[i]) == 0 && is_set(nns->newstr[i]) == 0)))
-			{
-				i++;
-				quote_type = quote_check(nns->newstr[i], quote_type);
-			}
+				quote_type = quote_check(nns->newstr[++i], quote_type);
 			if (i != j)
 			{
-				nns->name = quote_parser(cut_str(nns->newstr, i, j));
-				if (!nns->name)
-				{
-					free_nns(nns);
-					return NULL;
-				}
-				tmp = nns->newstr;
-				nns->newstr = delete_part(tmp,i,j,k);
-				free(tmp);
-				if (!nns->newstr)
-				{
-					free_nns(nns);
-					return NULL;
-				}
+				if (put_contents_to_nns(nns,i,j,k) == 0)
+					return NULL;	
 			}
 			return nns;
 		}

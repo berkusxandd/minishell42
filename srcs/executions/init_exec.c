@@ -31,6 +31,15 @@ void	wait_child(t_data *data, pid_t exit_status, int nb_process)
 	}
 }
 
+void    free_exit(t_data *data, int err)
+{
+    free_tab(data->path);
+   	//free_env(data->env);
+    free_tab(data->env_array);
+    free_all_pipelines(data->all_pipes);
+    exit(err);
+}
+
 void	exec_cmd(t_data *data, char **arg)
 {
 	char	*cmd;
@@ -44,17 +53,17 @@ void	exec_cmd(t_data *data, char **arg)
 		ft_putstr_fd(arg[0], 2);
 		ft_putstr_fd(": Permission denied\n", 2);
 		free(cmd);
-		// free_exit(data, 126);
+		free_exit(data, 126);
 	}
 	ft_putstr_fd("MiniShell: ", 2);
 	ft_putstr_fd(arg[0], 2);
 	ft_putstr_fd(": command not found\n", 2);
-	// free_exit(data, 127);
+	free_exit(data, 127);
 }
 
 void	child(t_data *data)
 {
-	printf("AVANT DUP2: cmd = %s\n stdin = %d\n stfout = %d\n", data->all_pipes->pipelines[data->index]->cmd[0],data->all_pipes->pipelines[data->index]->infile_fd, data->all_pipes->pipelines[data->index]->outfile_fd);
+	//printf("AVANT DUP2: cmd = %s\n stdin = %d\n stfout = %d\n", data->all_pipes->pipelines[data->index]->cmd[0],data->all_pipes->pipelines[data->index]->infile_fd, data->all_pipes->pipelines[data->index]->outfile_fd);
 	
 	if (dup2(data->all_pipes->pipelines[data->index]->infile_fd, READ) == -1)
 		return (perror("Minishell: Error"));

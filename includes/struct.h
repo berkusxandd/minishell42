@@ -55,6 +55,7 @@ typedef struct s_data
 	int				status;
 	t_all_pipelines	*all_pipes;
 	int				index;
+	int signal;
 }	t_data;
 
 #endif

@@ -10,8 +10,11 @@ char *parse_space_in_quotes(char *str)
 	while (str[i+1])
 	{
         q_type = quote_check(str[i],q_type);
-		if (str[i] == ' ' && q_type != 0)
-			str[i] = -4;
+        if (q_type != 0)
+        {
+	    	if (str[i] == ' ')
+			    str[i] = -4;
+        }
 		i++;
 	}
 	return (str);

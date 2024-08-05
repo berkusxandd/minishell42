@@ -42,6 +42,7 @@ void	free_all(t_data *data);
 int		count_str(char **str);
 int		count_list(t_list *lst);
 t_list	*find(t_data *data, char *varname);
+void	free_env(t_list **env);
 
 //--------------------------------------------------//
 //						BERKE <3					//

@@ -61,17 +61,17 @@ char *parse_input_args(char *input,t_list *env)
 		{
 			i++;
 			j = i;
-			while(parsed_str[i] && is_set(parsed_str[i]) == 0)
+			while(parsed_str[i] && (ft_isalnum(parsed_str[i]) || parsed_str[i] == '_'))
 				i++;
 			if (i==j)
 				parsed_str[j - 1] = '$';
 			else
 			{
-			var_name = cut_str(parsed_str,i,j);
+			var_name = cut_str(parsed_str,i-1,j);
 			var_value = get_value(var_name,env);
 			free(var_name);
 			parsed_str = put_str_in_str(parsed_str,var_value,j-1,i-1);
-			i -= ft_strlen(var_value);
+			i = j - 1 + ft_strlen(var_value);
 			}
 		}
 		else
