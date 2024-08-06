@@ -27,10 +27,12 @@ void	free_tab(char **tab)
     int	i;
 
 	i = 0;
-	while (tab && tab[i])
+	// i changed ----
+	if (!tab)
+		return;
+	while (tab[i])
 		free(tab[i++]);
-	if (tab)
-		free(tab);
+	// --------------
 	tab = NULL;
 }
 

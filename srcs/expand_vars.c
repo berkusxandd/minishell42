@@ -43,6 +43,19 @@ char *put_str_in_str(char *dest, char *source, int start_index, int end_index)
 	return (parsed_str);
 }
 
+char *find_val_put_str(char *parsed_str, int i, int j, t_list *env)
+{
+	char *var_name;
+	char *var_value;
+
+	var_name = cut_str(parsed_str,i-1,j);
+	var_value = get_value(var_name,env);
+	free(var_name);
+	parsed_str = put_str_in_str(parsed_str,var_value,j-1,i-1);
+	return parsed_str;
+}
+
+
 char *parse_input_args(char *input,t_list *env)
 {
 	int i;
@@ -51,8 +64,7 @@ char *parse_input_args(char *input,t_list *env)
 
 
 	char *parsed_str;
-	char *var_name;
-	char *var_value;
+	char *tmp_var_name;
 	parsed_str = ft_strdup(input);
 	free(input);
 	while(parsed_str[i])
@@ -67,11 +79,9 @@ char *parse_input_args(char *input,t_list *env)
 				parsed_str[j - 1] = '$';
 			else
 			{
-			var_name = cut_str(parsed_str,i-1,j);
-			var_value = get_value(var_name,env);
-			free(var_name);
-			parsed_str = put_str_in_str(parsed_str,var_value,j-1,i-1);
-			i = j - 1 + ft_strlen(var_value);
+			tmp_var_name = cut_str(parsed_str,i-1,j);
+			parsed_str = find_val_put_str(parsed_str,i,j,env);
+			i = j - 1 + ft_strlen(get_value(tmp_var_name,env));
 			}
 		}
 		else

@@ -70,7 +70,9 @@ void	child(t_data *data)
 	close_all_pipe(data->all_pipes);
 	if (exec_builtins(data, data->all_pipes->pipelines[data->index]) == 1)
 	{
+		// I CHANGED HERE
 		free_exit(data,127);
+		// ------------------
 		return ;
 	}
 	exec_cmd(data, data->all_pipes->pipelines[data->index]->cmd);

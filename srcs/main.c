@@ -136,7 +136,7 @@ int main(int argc, char **argv, char **env)
 	t_data core;
 	t_all_pipelines *all_pipes;
 	int pipelines_succeed;
-   int original_stdin = dup(STDIN_FILENO);
+   	int original_stdin = dup(STDIN_FILENO);
     int original_stdout = dup(STDOUT_FILENO);
 	signal(SIGQUIT, SIG_IGN);
 	init_data(&core, env);
@@ -182,7 +182,7 @@ int main(int argc, char **argv, char **env)
 				ft_putstr_fd("pipeline error\n",1);
 			core.all_pipes = all_pipes;
 			execution(&core);
-			//print_pipelines(core.all_pipes);
+			print_pipelines(core.all_pipes);
 			dup2(original_stdin, STDIN_FILENO);
 			dup2(original_stdout, STDOUT_FILENO);
 			free(input_raw);
