@@ -138,8 +138,10 @@ int main(int argc, char **argv, char **env)
 	int pipelines_succeed;
    int original_stdin = dup(STDIN_FILENO);
     int original_stdout = dup(STDOUT_FILENO);
+	signal(SIGQUIT, SIG_IGN);
 	init_data(&core, env);
 	core.signal = 1;
+	rl_catch_signals = 0;
     while (core.signal != 0)
 	{
         input_raw = readline("minishell> ");
@@ -187,7 +189,7 @@ int main(int argc, char **argv, char **env)
 			free_all_pipelines(all_pipes);
 		}
 		}
-    }
+	}
 	free_env(&(core.env));
     clear_history();
 }

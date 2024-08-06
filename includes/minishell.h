@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:08:29 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/04 17:46:07 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/06 10:22:23 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <signal.h>
 
 void	init_data(t_data *data, char **env);
 

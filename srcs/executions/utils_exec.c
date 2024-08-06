@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 20:23:24 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/04 17:42:11 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/06 13:48:47 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,11 @@ char	*get_cmd_path(t_data *data, char **arg)
 	char	*tmp_path;
 
 	i = 0;
+
+	// i added this part ---------
+	if (!data->path)
+		return NULL;
+	//------------------------
 	if (arg == NULL || arg[0][0] == '/' || arg[0][0] == '.')
 		return (get_cmd_path_2(arg));
 	cmd = arg[0];
