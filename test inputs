@@ -1,3 +1,0 @@
-//char *test = ">a < aninfile <'a''a'   secind    < third cat Makefile >b | mem >>outfile > A > B > C > D | cat a >>extendedfile";
-	//char *test = "wc -l";
-char *test = "cat '''file1' $LOGNAME  $LOGNAME       | infile < cat | grep text >> file4 | infile < cat | wc -l | sleep 3 | wc -c > outfile";

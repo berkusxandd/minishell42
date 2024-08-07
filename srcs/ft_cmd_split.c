@@ -36,7 +36,6 @@ char **deparse_pipes(char **parsed)
                 parsed[i][j] = '|';
             j++;
         }
-        parsed[i] = quote_parser(parsed[i]);
         i++;
     }
     return parsed;

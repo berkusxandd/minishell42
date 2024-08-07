@@ -42,6 +42,7 @@ t_pipeline *parser(char *input)
 		return NULL;
 	}
 	pipeline->cmd = cmd_quote_parse(nns->newstr);
+	//pipeline->cmd = ft_split(nns->newstr,' ');
 	free(nns->newstr);
 	free(nns);
 	return pipeline;

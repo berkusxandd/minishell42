@@ -45,11 +45,11 @@ char *two_signs_handler(char *input)
 	while (new_input[i+1])
 	{
 		q_type = quote_check(new_input[i],q_type);
-		if (new_input[i] == '<' && new_input[i+1] == '<' && q_type != 1)
+		if (new_input[i] == '<' && new_input[i+1] == '<' && q_type == 0)
 		{
 			new_input[i] = -1;
 			new_input[i+1] = ' ';
-		}else if (new_input[i] == '>' && new_input[i+1] == '>' && q_type != 1)
+		}else if (new_input[i] == '>' && new_input[i+1] == '>' && q_type == 0)
 		{
 			new_input[i] = -2;
 			new_input[i+1] = ' ';
