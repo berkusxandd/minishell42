@@ -48,7 +48,7 @@ char *find_val_put_str(char *parsed_str, int i, int j, t_list *env)
 	char *var_name;
 	char *var_value;
 
-	var_name = cut_str(parsed_str,i-1,j);
+	var_name = cut_str(parsed_str,i-1,j,1);
 	var_value = get_value(var_name,env);
 	free(var_name);
 	parsed_str = put_str_in_str(parsed_str,var_value,j-1,i-1);
@@ -79,7 +79,7 @@ char *parse_input_args(char *input,t_list *env)
 				parsed_str[j - 1] = '$';
 			else
 			{
-			tmp_var_name = cut_str(parsed_str,i-1,j);
+			tmp_var_name = cut_str(parsed_str,i-1,j,1);
 			parsed_str = find_val_put_str(parsed_str,i,j,env);
 			i = j - 1 + ft_strlen(get_value(tmp_var_name,env));
 			}

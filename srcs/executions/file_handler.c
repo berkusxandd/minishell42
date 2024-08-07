@@ -65,7 +65,7 @@ void	open_infile(t_pipeline *node)
 		i++;
 	}
 }
-
+// i changed here
 void	open_outfile(t_pipeline *node)
 {
 	int		i;
@@ -75,6 +75,9 @@ void	open_outfile(t_pipeline *node)
 	i = 0;
 	while (node->outfiles[i])
 	{
+		if (node->outfiles[i][0] == '0')
+		{
+		node->outfiles[i]++;
 		filepath = NULL;
 		fd = -1;
 		filepath = get_pathfile(node->outfiles[i]);
@@ -92,10 +95,34 @@ void	open_outfile(t_pipeline *node)
 		else
 			perror("Minishell: Error OUTF");
 		free(filepath);
+		}
+		else if (node->outfiles[i][0] == 'x')
+		{
+			node->outfiles[i]++;
+			filepath = NULL;
+			fd = -1;
+			filepath = get_pathfile(node->outfiles[i]);
+			printf("path_out %s\n", filepath);
+			printf("fd_out init = %d\n", fd);
+			if (access(filepath, W_OK) == 0 || access(filepath, F_OK) == -1)
+			{
+				fd = open(filepath,  O_WRONLY | O_CREAT | O_APPEND, 0666);
+				printf("fd0_out = %d\n", fd);
+				if (node->outfiles[i + 1] == NULL && fd != -1)
+					node->outfile_fd = fd;
+				else
+					close(fd);
+			}
+			else
+				perror("Minishell: Error OUTF");
+			free(filepath);
+		}
+	
 		i++;
 	}
 }
 
+// i changed here
 void	open_outfile_ext(t_pipeline *node)
 {
 	int		i;
@@ -107,7 +134,7 @@ void	open_outfile_ext(t_pipeline *node)
 	{
 		filepath = NULL;
 		fd = -1;
-		filepath = get_pathfile(node->outfiles_ext[i]);
+		filepath = get_pathfile(node->outfiles[i]);
 		// printf("path_out_ext %s\n", filepath);
 		// printf("fd_out_ext init = %d\n", fd);
 		if (access(filepath, W_OK) == 0 || access(filepath, F_OK) == -1)
@@ -125,6 +152,7 @@ void	open_outfile_ext(t_pipeline *node)
 		i++;
 	}
 }
+
 
 void	open_file(t_data *data)
 {

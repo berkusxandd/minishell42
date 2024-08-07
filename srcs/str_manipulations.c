@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-char *cut_str(char *input, int i, int j)
+char *cut_str(char *input, int i, int j, int extended)
 {
 	int len;
 	int k;
@@ -10,8 +10,8 @@ char *cut_str(char *input, int i, int j)
 	if (i == j)
 		return NULL;
 	len = i - j;
-	k = 0;
-	outfile_name = malloc(sizeof(char) * (len + 1));
+	k = extended - 1;
+	outfile_name = malloc(sizeof(char) * (len + 2));
 	if (!outfile_name)
 		return NULL;
 	while(j < i)

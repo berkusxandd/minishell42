@@ -18,20 +18,25 @@ void free_pipeline(t_pipeline *pipeline)
 			free(pipeline->infiles[i++]);
 		free(pipeline->infiles);
 	}
-	i = 0;
-	if (pipeline->outfiles)
-	{
-		while (pipeline->outfiles[i])
-			free(pipeline->outfiles[i++]);
-		free(pipeline->outfiles);
-	}
-	i = 0;
-	if (pipeline->outfiles_ext)
-	{
-		while (pipeline->outfiles_ext[i])
-			free(pipeline->outfiles_ext[i++]);
-		free(pipeline->outfiles_ext);
-	}
+
+	//INVALID FREE
+	// i = 0;
+	// if (pipeline->outfiles)
+	// {
+	// 	while (pipeline->outfiles[i])
+	// 		free(pipeline->outfiles[i++]);
+	// 	free(pipeline->outfiles);
+	// }
+
+
+
+	// i = 0;
+	// if (pipeline->outfiles_ext)
+	// {
+	// 	while (pipeline->outfiles_ext[i])
+	// 		free(pipeline->outfiles_ext[i++]);
+	// 	free(pipeline->outfiles_ext);
+	// }
 	i = 0;
 	if (pipeline->here_docs)
 	{

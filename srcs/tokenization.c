@@ -13,8 +13,21 @@ void free_nns(t_nns *nns)
 int put_contents_to_nns(t_nns *nns, int i, int j, int k)
 {
 	char *tmp;
+	int extended;
 
-	nns->name = quote_parser(cut_str(nns->newstr, i, j));
+	if (nns->newstr[k] == -2 || nns->newstr[k] == '>')
+		extended = 2;
+	else
+		extended = 1;
+	char *wo_quote = cut_str(nns->newstr, i, j , extended);
+	if (extended == 2)
+	{
+		if (nns->newstr[k] == -2)
+			wo_quote[0] = 'x';
+		else
+			wo_quote[0] = '0';
+	}
+	nns->name = quote_parser(wo_quote);
 	if (!nns->name)
 	{
 		free_nns(nns);
@@ -45,6 +58,19 @@ int space_skip(t_nns *nns, int *quote_type, int i,int k)
 	return i;
 }
 
+int is_cur_token(char c, char token)
+{
+	if (token == '>' || token == -2)
+	{
+		if (c == '>' || c == -2)
+			return 1;
+		else
+			return 0;
+	}
+	else
+		return (c == token);
+}
+
 t_nns *find_token(t_nns *nns, char token)
 {
 	int quote_type;
@@ -57,7 +83,7 @@ t_nns *find_token(t_nns *nns, char token)
 	while (nns->newstr[i])
 	{
 		quote_type = quote_check(nns->newstr[i], quote_type);
-		if (nns->newstr[i] == token && quote_type == 0)
+		if (is_cur_token(nns->newstr[i],token) != 0 && quote_type == 0) //if (nns->newstr[i] == token && quote_type == 0)
 		{
 			k = i++;
 			i = space_skip(nns,&quote_type,i,k);
@@ -108,7 +134,7 @@ int count_tokens(char *input, char token)
 	while(input[i])
 	{
 		quote_type = quote_check(input[i], quote_type);
-		if(input[i] == token && quote_type == 0)
+		if(is_cur_token(input[i],token) != 0 && quote_type == 0)
 			count++;
 		i++;
 	}

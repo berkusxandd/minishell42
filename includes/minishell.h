@@ -53,7 +53,7 @@ int is_set(char c);
 int is_token(char c);
 char *parse(char *input);
 char *delete_part(char *input, int i, int j,int l);
-char *cut_str(char *input, int i, int j);
+char *cut_str(char *input, int i, int j, int extended);
 char  **tokenization(t_nns **nns, char token);
 int count_tokens(char *input, char token);
 t_nns *gen_token(t_nns *nns_old, char token);
