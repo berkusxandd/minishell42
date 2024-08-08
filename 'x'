@@ -13,8 +13,7 @@ SRCS = ./srcs/main.c  ./srcs/char_checks.c ./srcs/pipeline_parser.c ./srcs/quote
 		srcs/executions/file_handler.c\
 		srcs/executions/init_exec.c\
 		srcs/executions/utils_exec.c\
-		srcs/executions/utils_pipeline.c\
-		srcs/executions/here_doc.c
+		srcs/executions/utils_pipeline.c
 OBJS_DIR = ./objs
 OBJS = $(SRCS:./srcs/%.c=$(OBJS_DIR)/%.o)
 LIBFT = ./Libft/libft.a

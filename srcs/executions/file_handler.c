@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 02:23:28 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/04 18:53:51 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/08 18:15:06 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,38 +117,7 @@ void	open_outfile(t_pipeline *node)
 				perror("Minishell: Error OUTF");
 			free(filepath);
 		}
-	
-		i++;
-	}
-}
 
-// i changed here
-void	open_outfile_ext(t_pipeline *node)
-{
-	int		i;
-	int		fd;
-	char	*filepath;
-
-	i = 0;
-	while (node->outfiles_ext[i])
-	{
-		filepath = NULL;
-		fd = -1;
-		filepath = get_pathfile(node->outfiles[i]);
-		// printf("path_out_ext %s\n", filepath);
-		// printf("fd_out_ext init = %d\n", fd);
-		if (access(filepath, W_OK) == 0 || access(filepath, F_OK) == -1)
-		{
-			fd = open(filepath, O_WRONLY | O_CREAT | O_APPEND, 0666);
-			// printf("fd0_out_ext = %d\n", fd);
-			if (node->outfiles_ext[i + 1] == NULL && fd != -1)
-				node->outfile_fd = fd;
-			else
-				close(fd);
-		}
-		else
-			perror("Minishell: Error OUTX");
-		free(filepath);
 		i++;
 	}
 }
@@ -161,6 +130,8 @@ void	open_file(t_data *data)
 	i = 0;
 	while (data->all_pipes->pipelines[i])
 	{
+		if (data->all_pipes->pipelines[i]->here_docs[0] != NULL)
+			heredocs(data->all_pipes->pipelines[i]);
 		if (data->all_pipes->pipelines[i]->infiles[0] != NULL)
 		{
 			open_infile(data->all_pipes->pipelines[i]);
@@ -170,11 +141,6 @@ void	open_file(t_data *data)
 		{
 			open_outfile(data->all_pipes->pipelines[i]);
 			printf("fd1_out = %d\n", data->all_pipes->pipelines[i]->outfile_fd);
-		}
-		if (data->all_pipes->pipelines[i]->outfiles_ext[0] != NULL)
-		{
-			open_outfile_ext(data->all_pipes->pipelines[i]);
-			// printf("fd1_out_ext = %d\n", data->all_pipes->pipelines[i]->outfile_fd);
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 17:29:40 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/04 17:51:32 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/08 17:44:35 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_pipeline
 	char	**outfiles;
 	char	**outfiles_ext;
 	char	**here_docs;
+	char	*here_filename;
 	int		infile_fd;
 	int		outfile_fd;
 	pid_t	pid;

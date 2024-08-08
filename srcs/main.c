@@ -26,6 +26,7 @@ t_pipeline *pipeline_init()
 	pipeline->outfiles = NULL;
 	pipeline->outfiles_ext = NULL;
 	pipeline->here_docs = NULL;
+	pipeline->here_filename =NULL;
 	pipeline->infile_fd = 0;
 	pipeline->outfile_fd = 1;
 	return pipeline;

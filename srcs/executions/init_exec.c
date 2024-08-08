@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 19:08:42 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/06 13:03:55 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/08 18:11:25 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	wait_child(t_data *data, pid_t exit_status, int nb_process)
 void    free_exit(t_data *data, int err)
 {
     free_tab(data->path);
-   	//free_env(data->env);
+   	free_env(&(data->env));
     free_tab(data->env_array);
     free_all_pipelines(data->all_pipes);
     exit(err);
@@ -82,6 +82,11 @@ pid_t	start_exec(t_data *data)
 {
 	pid_t	pid;
 
+	if (count_cmd(data) == 1 && is_builtin(data->all_pipes->pipelines[0]->cmd[0]) == 1)
+	{
+		exec_builtins(data, data->all_pipes->pipelines[0]);
+		return (-1);
+	}
 	pid = fork();
 	if (pid < 0)
 	{
