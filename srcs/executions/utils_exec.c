@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 20:23:24 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/06 13:48:47 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/08 18:22:21 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	count_cmd(t_data *data)
 	// printf("nb cmd %d\n", i);
 	return (i);
 }
-
+//if malloc error quit
 void	creat_env_char(t_data *data)
 {
 	int		i;

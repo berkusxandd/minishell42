@@ -24,7 +24,6 @@ t_pipeline *pipeline_init()
 	pipeline->cmd = NULL;
 	pipeline->infiles = NULL;
 	pipeline->outfiles = NULL;
-	pipeline->outfiles_ext = NULL;
 	pipeline->here_docs = NULL;
 	pipeline->here_filename =NULL;
 	pipeline->infile_fd = 0;
@@ -192,5 +191,7 @@ int main(int argc, char **argv, char **env)
 		}
 	}
 	free_env(&(core.env));
+	free_tab(core.path);
+	//free_all_pipelines(all_pipes);
     clear_history();
 }

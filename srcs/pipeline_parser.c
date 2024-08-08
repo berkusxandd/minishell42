@@ -35,13 +35,6 @@ t_pipeline *parser(char *input)
 		free_pipeline(pipeline);
 		return NULL;
 	}
-	pipeline->outfiles_ext = tokenization(&nns, -2);
-	if (!pipeline->outfiles_ext)
-	{
-		free_pipeline(pipeline);
-		return NULL;
-	}
-	pipeline->outfiles_ext[0] = NULL;
 	pipeline->cmd = cmd_quote_parse(nns->newstr);
 	//pipeline->cmd = ft_split(nns->newstr,' ');
 	free(nns->newstr);

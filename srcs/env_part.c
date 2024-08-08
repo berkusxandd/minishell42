@@ -33,7 +33,7 @@ void	free_tab(char **tab)
 	while (tab[i])
 		free(tab[i++]);
 	// --------------
-	tab = NULL;
+	free(tab);
 }
 
 static void	shlvl_up(t_data *data, char *lvl)

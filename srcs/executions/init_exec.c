@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 19:08:42 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/08 18:11:25 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/08 18:49:35 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ int	launch_cmd(t_data *data, int nb_process)
 	return (exit_status);
 }
 
+
+
 void	execution(t_data *data)
 {
 	int	nb_process;
@@ -134,5 +136,4 @@ void	execution(t_data *data)
 	if (exit_status != -1)
 		wait_child(data, exit_status, nb_process);
 	free_tab(data->env_array);
-
 }

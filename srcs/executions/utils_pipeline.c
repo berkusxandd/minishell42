@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 20:15:46 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/04 20:26:48 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/08 19:00:58 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	creat_pipe(t_pipeline **node)
 	i = 0;
 	while (node[i])
 	{
-		if (node[i]->outfiles[0] == NULL && node[i]->outfiles_ext[0] == NULL && node[i + 1])
+		if (node[i]->outfiles[0] == NULL && node[i + 1])
 		{
 			if (pipe(node[i]->pipefd) == -1)
 			{
