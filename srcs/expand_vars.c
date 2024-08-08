@@ -41,29 +41,40 @@ char *put_str_in_str(char *dest, char *source, int start_index, int end_index)
 	return (parsed_str);
 }
 
-char *find_val_put_str(char *parsed_str, int i, int j, t_list *env)
+char *find_val_put_str(char *parsed_str, int i, int j, t_data core)
 {
 	char *var_name;
 	char *var_value;
 
 	var_name = cut_str(parsed_str,i,j,1);
-	var_value = get_value(var_name,env);
+	if (var_name[0] == '?')
+	{
+		var_value = ft_itoa(core.status);
+		free(var_name);
+		parsed_str = put_str_in_str(parsed_str,var_value,j-1,i-1);
+		return parsed_str;
+	}
+	else
+	{
+	var_value = get_value(var_name,core.env);
 	free(var_name);
 	parsed_str = put_str_in_str(parsed_str,var_value,j-1,i-1);
 	return parsed_str;
+	}
 }
 
 
-char *parse_input_args(char *input,t_list *env)
+char *parse_input_args(char *input,t_data core)
 {
 	int i;
 	int j;
-	i = 0;
-
-
 	char *parsed_str;
 	char *tmp_var_name;
+
 	parsed_str = ft_strdup(input);
+	if (!parsed_str)
+		return NULL;
+	i = 0;
 	free(input);
 	while(parsed_str[i])
 	{
@@ -71,15 +82,15 @@ char *parse_input_args(char *input,t_list *env)
 		{
 			i++;
 			j = i;
-			while(parsed_str[i] && (ft_isalnum(parsed_str[i]) || parsed_str[i] == '_'))
+			while(parsed_str[i] && (ft_isalnum(parsed_str[i]) || parsed_str[i] == '_' ||  parsed_str[i] == '?'))
 				i++;
 			if (i==j)
 				parsed_str[j - 1] = '$';
 			else
 			{
 			tmp_var_name = cut_str(parsed_str,i,j,1);
-			parsed_str = find_val_put_str(parsed_str,i,j,env);
-			i = j - 1 + ft_strlen(get_value(tmp_var_name,env));
+			parsed_str = find_val_put_str(parsed_str,i,j,core);
+			i = j - 1 + ft_strlen(get_value(tmp_var_name,core.env));
 			}
 		}
 		else

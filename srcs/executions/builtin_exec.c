@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 20:50:08 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/06 13:01:41 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/08 21:44:31 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	is_builtin(char *cmd)
 			|| !ft_strncmp(cmd, "env", 4)
 			|| !ft_strncmp(cmd, "export", 7)
 			|| !ft_strncmp(cmd, "pwd", 4)
-			|| !ft_strncmp(cmd, "unset", 6))
+			|| !ft_strncmp(cmd, "unset", 6)
+			|| !ft_strncmp(cmd, "exit", 5))
 		return (1);
 	return (0);
 }
