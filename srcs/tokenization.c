@@ -160,15 +160,14 @@ char  **tokenization(t_nns **nns, char token)
 			free_str_tab(tokens);
 			return NULL;
 		}
-		tokens[i] = ft_strdup((*nns)->name);
-		free((*nns)->name);
-		if (!tokens[i])
+		if ((*nns)->name)
 		{
-			free_str_tab(tokens);
-			free_nns((*nns));
-			free(nns);
-			return NULL;
+		tokens[i] = ft_strdup((*nns)->name);
+		//PROTECT MALLOC
+		free((*nns)->name);
 		}
+		else
+			tokens[i] = NULL;
 		i++;
 	}
 	tokens[i] = NULL;
