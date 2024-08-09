@@ -32,12 +32,10 @@ char *put_str_in_str(char *dest, char *source, int start_index, int end_index)
 				parsed_str[j] = source[j - start_index];
 				j++;
 			}
-			i++;
 		}
 		else if(i > end_index || i < start_index)
-			parsed_str[j++] = dest[i++];
-		else
-			i++;
+			parsed_str[j++] = dest[i];
+		i++;
 	}
 	free(dest);
 	parsed_str[j] = '\0';
@@ -65,14 +63,27 @@ char *find_val_put_str(char *parsed_str, int i, int j, t_data core)
 	return parsed_str;
 	}
 }
+char *create_parsed_str(int *i, int j, char *parsed_str, t_data core)
+{
+	char *tmp_var_name;
 
+	if (*i==j)
+		parsed_str[j - 1] = '$';
+	else
+	{
+		tmp_var_name = cut_str(parsed_str,*i,j,1);
+		parsed_str = find_val_put_str(parsed_str,*i,j,core);
+		*i = j - 1 + ft_strlen(get_value(tmp_var_name,core.env));
+		free(tmp_var_name);
+	}
+	return parsed_str;
+}
 
 char *parse_input_args(char *input,t_data core)
 {
 	int i;
 	int j;
 	char *parsed_str;
-	char *tmp_var_name;
 
 	parsed_str = ft_strdup(input);
 	if (!parsed_str)
@@ -87,14 +98,7 @@ char *parse_input_args(char *input,t_data core)
 			j = i;
 			while(parsed_str[i] && (ft_isalnum(parsed_str[i]) || parsed_str[i] == '_' ||  parsed_str[i] == '?'))
 				i++;
-			if (i==j)
-				parsed_str[j - 1] = '$';
-			else
-			{
-			tmp_var_name = cut_str(parsed_str,i,j,1);
-			parsed_str = find_val_put_str(parsed_str,i,j,core);
-			i = j - 1 + ft_strlen(get_value(tmp_var_name,core.env));
-			}
+			parsed_str = create_parsed_str(&i,j,parsed_str, core);
 		}
 		else
 			i++;

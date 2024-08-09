@@ -65,7 +65,6 @@ void	open_infile(t_pipeline *node)
 		i++;
 	}
 }
-// i changed here
 void	open_outfile(t_pipeline *node)
 {
 	int		i;
@@ -81,6 +80,9 @@ void	open_outfile(t_pipeline *node)
 		filepath = NULL;
 		fd = -1;
 		filepath = get_pathfile(node->outfiles[i]);
+		//i changed here
+		node->outfiles[i]--;
+		//--------
 		printf("path_out %s\n", filepath);
 		printf("fd_out init = %d\n", fd);
 		if (access(filepath, W_OK) == 0 || access(filepath, F_OK) == -1)
@@ -104,6 +106,9 @@ void	open_outfile(t_pipeline *node)
 			filepath = get_pathfile(node->outfiles[i]);
 			printf("path_out %s\n", filepath);
 			printf("fd_out init = %d\n", fd);
+			// i changed here
+			node->outfiles[i]--;
+			//----------
 			if (access(filepath, W_OK) == 0 || access(filepath, F_OK) == -1)
 			{
 				fd = open(filepath,  O_WRONLY | O_CREAT | O_APPEND, 0666);

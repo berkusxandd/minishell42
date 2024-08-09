@@ -83,7 +83,7 @@ t_nns *find_token(t_nns *nns, char token)
 	while (nns->newstr[i])
 	{
 		quote_type = quote_check(nns->newstr[i], quote_type);
-		if (is_cur_token(nns->newstr[i],token) != 0 && quote_type == 0) //if (nns->newstr[i] == token && quote_type == 0)
+		if (is_cur_token(nns->newstr[i],token) != 0 && quote_type == 0)
 		{
 			k = i++;
 			i = space_skip(nns,&quote_type,i,k);
