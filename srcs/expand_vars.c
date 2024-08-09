@@ -4,8 +4,11 @@ char *get_value(char *varname, t_list *env)
 {
 	while(env)
 	{
+		if (ft_strlen(varname) == ft_strlen(env->var))
+		{
 		if(ft_strncmp(env->var,varname,ft_strlen(varname)) == 0)
 			return (env->value);
+		}
 		env = env->next;
 	}
 	return (ft_strdup(""));
