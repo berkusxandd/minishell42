@@ -1,22 +1,7 @@
 #include "../includes/minishell.h"
 
-
-t_pipeline *parser(char *input)
+t_pipeline *parser_2(t_pipeline *pipeline, t_nns *nns)
 {
-	t_nns *nns;
-	t_pipeline *pipeline;
-
-	pipeline = pipeline_init();
-	if (!pipeline)
-	{
-		return NULL;
-	}
-	nns = nns_init(input);
-	if (!nns)
-	{
-		free_pipeline(pipeline);
-		return NULL;
-	}
 	pipeline->outfiles = tokenization(&nns,'>');
 	if (!pipeline->outfiles)
 	{
@@ -36,9 +21,32 @@ t_pipeline *parser(char *input)
 		return NULL;
 	}
 	pipeline->cmd = cmd_quote_parse(nns->newstr);
-	//pipeline->cmd = ft_split(nns->newstr,' ');
+	if (!pipeline->cmd)
+	{
+		free_pipeline(pipeline);
+		return NULL;
+	}
+	return pipeline;
+}
+t_pipeline *parser(char *input)
+{
+	t_nns *nns;
+	t_pipeline *pipeline;
+
+	pipeline = pipeline_init();
+	if (!pipeline)
+		return NULL;
+	nns = nns_init(input);
+	if (!nns)
+	{
+		free_pipeline(pipeline);
+		return NULL;
+	}
+	pipeline = parser_2(pipeline,nns);
 	free(nns->newstr);
 	free(nns);
+	if (!pipeline)
+		return NULL;
 	return pipeline;
 }
 

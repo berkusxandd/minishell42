@@ -89,6 +89,8 @@ char **cmd_quote_parse(char *str)
 
     str = parse_space_in_quotes(str);
     parsed_cmds = ft_split(str, ' ');
+    if (!parsed_cmds)
+        return NULL;
     parsed_cmds = deparse_spaces(parsed_cmds);
     return parsed_cmds;
 }

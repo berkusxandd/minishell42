@@ -11,9 +11,9 @@ char *get_value(char *varname, t_list *env)
 		}
 		env = env->next;
 	}
-	return (ft_strdup(""));
+	return ("");
 }
-//start index is dolar
+
 char *put_str_in_str(char *dest, char *source, int start_index, int end_index)
 {
 	char *parsed_str;
@@ -52,7 +52,7 @@ char *find_val_put_str(char *parsed_str, int i, int j, t_data core)
 	{
 		var_value = ft_itoa(core.status);
 		free(var_name);
-		parsed_str = put_str_in_str(parsed_str,var_value,j-1,i-1);
+		parsed_str = put_str_in_str(parsed_str,var_value,j-1,j);
 		return parsed_str;
 	}
 	else
@@ -77,7 +77,6 @@ char *create_parsed_str(int *i, int j, char *parsed_str, t_data core)
 		parsed_str = find_val_put_str(parsed_str,*i,j,core);
 		if (!parsed_str)
 			return NULL;
-		//PROTECTION ---------------v
 		*i = j - 1 + ft_strlen(get_value(tmp_var_name,core.env));
 		free(tmp_var_name);
 	}
