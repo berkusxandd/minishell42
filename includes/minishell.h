@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:08:29 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/08 22:28:12 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/12 17:54:24 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,12 @@ char *parse_space_in_quotes(char *str);
 char **deparse_spaces(char **parsed);
 char **deparse_pipes(char **parsed);
 char *parse_pipes_in_quotes(char *str);
+t_pipeline	*pipeline_init(void);
+t_nns	*nns_init(char *input);
+int	input_quote_valid(char *input);
+char	*input_prep(char *input_raw, t_data core);
+int input_raw_checks(char *input_raw, t_data *core);
+char	*two_signs_handler(char *input);
+char *two_signs_handler_2(int i, char *new_input, int q_type);
 #endif
 

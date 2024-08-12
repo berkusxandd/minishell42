@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 19:08:42 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/08 18:49:35 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/12 19:52:32 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,18 @@ int	launch_cmd(t_data *data, int nb_process)
 	return (exit_status);
 }
 
+void	close_here_doc(t_all_pipelines *all_pipes)
+{
+	int	i;
 
+	i = 0;
+	while (all_pipes->pipelines[i])
+	{
+		if (all_pipes->pipelines[i]->here_filename != NULL)
+			unlink(all_pipes->pipelines[i]->here_filename);
+		i++;
+	}
+}
 
 void	execution(t_data *data)
 {
@@ -143,5 +154,6 @@ void	execution(t_data *data)
 	close_all_pipe(data->all_pipes);
 	if (exit_status != -1)
 		wait_child(data, exit_status, nb_process);
+	close_here_doc(data->all_pipes);
 	free_tab(data->env_array);
 }

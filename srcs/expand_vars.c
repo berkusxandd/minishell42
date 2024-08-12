@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_vars.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/12 17:48:57 by bince             #+#    #+#             */
+/*   Updated: 2024/08/12 18:03:33 by bince            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 char *get_value(char *varname, t_list *env)
@@ -51,6 +63,13 @@ char *find_val_put_str(char *parsed_str, int i, int j, t_data core)
 	if (var_name[0] == '?')
 	{
 		var_value = ft_itoa(core.status);
+		free(var_name);
+		parsed_str = put_str_in_str(parsed_str,var_value,j-1,j);
+		return parsed_str;
+	}
+	else if (ft_isdigit(var_name[0]))
+	{
+		var_value = "";
 		free(var_name);
 		parsed_str = put_str_in_str(parsed_str,var_value,j-1,j);
 		return parsed_str;

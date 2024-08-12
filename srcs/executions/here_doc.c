@@ -25,25 +25,43 @@ char	*get_namedoc(void)
 	return (name);
 }
 
+void	sig_heredoc(int status)
+{
+	(void)status;
+	rl_replace_line("\n", 0);
+	rl_redisplay();
+	rl_done = 1;
+	g_signals.here_doc_quit = 1;
+}
+
+// i changed here
 void handle_heredoc(char *delim, int fd)
 {
 	char	*line;
 
+	signal(SIGINT, sig_heredoc);
+	g_signals.here_doc_quit = 0;
 	while (1)
 	{
-		line = readline("> "); //verif NULL EOF
-		if (!line || strcmp(line, delim) == 0)
+		line = readline("> ");
+		if (!line)
+		{
+			ft_putstr_fd("minishell: here_doc: called end-of-line (ctrl-d)\n",
+				2);
+			break ;
+		}
+		if ((!ft_strncmp(line, delim,ft_strlen(line)) && ft_strlen(line) > 0) || g_signals.here_doc_quit == 1)
 		{
 			free(line);
-			break;
+			break ;
 		}
-		write(fd, line, strlen(line));
+		write(fd, line, ft_strlen(line));
 		write(fd, "\n", 1);
 		free(line);
 	}
 	lseek(fd, 0, SEEK_SET);
 }
-
+//i changed here
 void	heredocs(t_pipeline *pipeline)
 {
 	int		i;
@@ -58,9 +76,17 @@ void	heredocs(t_pipeline *pipeline)
 		if (fd == -1)
 		{
 			perror("Error open");
-			exit(EXIT_FAILURE);
+			free(filename);
+			return;
 		}
 		handle_heredoc(pipeline->here_docs[i], fd);
+		if (g_signals.here_doc_quit)
+        {
+            close(fd);
+            unlink(filename);
+            free(filename);
+            return;
+        }
 		if (pipeline->here_docs[i + 1] != NULL)
 		{
 			close(fd);

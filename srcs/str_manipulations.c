@@ -1,43 +1,42 @@
 #include "../includes/minishell.h"
 
-char *cut_str(char *input, int i, int j, int extended)
+char	*cut_str(char *input, int i, int j, int extended)
 {
-	int len;
-	int k;
-
-	char *outfile_name;
+	int		len;
+	int		k;
+	char	*outfile_name;
 
 	if (i == j)
-		return NULL;
+		return (NULL);
 	len = i - j;
 	k = extended - 1;
 	outfile_name = malloc(sizeof(char) * (len + 2));
 	if (!outfile_name)
-		return NULL;
-	while(j < i)
+		return (NULL);
+	while (j < i)
 	{
 		outfile_name[k] = input[j];
 		j++;
 		k++;
 	}
 	outfile_name[k] = '\0';
-	return outfile_name;
+	return (outfile_name);
 }
 
-char *delete_part(char *input, int i, int j,int l)
+char	*delete_part(char *input, int i, int j, int l)
 {
-	int len;
-	char *newstr;
-	int k;
+	int		len;
+	char	*newstr;
+	int		k;
 
 	if (i == j)
-		return NULL;
+		return (NULL);
 	k = 0;
 	len = ft_strlen(input);
 	newstr = malloc((len + 1) * sizeof(char));
 	if (!newstr)
-		return NULL;
-	while(input[k])
+		return (NULL);
+	while (input[k])
 	{
 		if ((k >= j && k < i) || k == l)
 			newstr[k] = ' ';
@@ -46,17 +45,17 @@ char *delete_part(char *input, int i, int j,int l)
 		k++;
 	}
 	newstr[k] = '\0';
-	return newstr;
+	return (newstr);
 }
 
-int is_exit(char *str)
+int	is_exit(char *str)
 {
-	int len;
+	int	len;
 
 	if (str == NULL)
-		return 1;
+		return (1);
 	len = ft_strlen(str);
 	if (len != 4)
-		return 1;
-	return (ft_strncmp(str,"exit",4));
+		return (1);
+	return (ft_strncmp(str, "exit", 4));
 }
