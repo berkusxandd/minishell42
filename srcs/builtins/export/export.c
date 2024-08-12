@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:45:22 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/04 17:41:53 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 00:07:47 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,17 @@ int	is_new_var(t_data *data, char *varname)
 		return (0);
 }
 
+void	set_datapath(t_data *data, char **tmp)
+{
+	if (data->path == NULL)
+		data->path = ft_split(tmp[1], ':');
+	else
+	{
+		free_tab(data->path);
+		data->path = ft_split(tmp[1], ':');
+	}
+}
+
 void	export_var(t_data *data, char *arg)
 {
 	char	**tmp;
@@ -59,6 +70,8 @@ void	export_var(t_data *data, char *arg)
 	}
 	else
 		modif_var(data, tmp, empty);
+	if (ft_strncmp(tmp[0], "PATH", 5) == 0)
+		set_datapath(data, tmp);
 	free_tab(tmp);
 }
 
@@ -77,5 +90,5 @@ void	ft_export(t_data *data, char **arg)
 		}
 	}
 	else
-		ft_putstr_fd("I eat my poop\n", 1);
+		ft_putstr_fd("\n", 1);
 }

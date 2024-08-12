@@ -76,12 +76,6 @@ int input_raw_checks(char *input_raw, t_data *core)
 		core->signal = 0;
 		return 0;
 	}
-	else if (is_exit(input_raw) == 0)
-	{
-		free(input_raw);
-		core->signal = 0;
-		return -1;
-	}
 	else
 	{
 		if (*input_raw)

@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:08:29 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/12 17:54:24 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 00:27:25 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <limits.h>
 
 # include "../Libft/libft.h"
 # include "./struct.h"
@@ -44,6 +45,7 @@ int		count_str(char **str);
 int		count_list(t_list *lst);
 t_list	*find(t_data *data, char *varname);
 void	free_env(t_list **env);
+void	free_exit(t_data *data, int err);
 
 //--------------------------------------------------//
 //						BERKE <3					//
@@ -77,9 +79,7 @@ void read_input();
 int is_exit(char *str);
 char **cmd_quote_parse(char *str);
 
-// CHANGED
 char *parse_input_args(char *input,t_data env);
-//
 char *parse_space_in_quotes(char *str);
 char **deparse_spaces(char **parsed);
 char **deparse_pipes(char **parsed);
@@ -91,5 +91,6 @@ char	*input_prep(char *input_raw, t_data core);
 int input_raw_checks(char *input_raw, t_data *core);
 char	*two_signs_handler(char *input);
 char *two_signs_handler_2(int i, char *new_input, int q_type);
+
 #endif
 

@@ -6,12 +6,11 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 19:08:42 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/12 19:52:32 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 00:27:49 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-//i changed here
 void	wait_child(t_data *data, pid_t exit_status, int nb_process)
 {
 	int		status;
@@ -41,14 +40,14 @@ void	wait_child(t_data *data, pid_t exit_status, int nb_process)
 	}
 }
 
-void    free_exit(t_data *data, int err)
-{
-    free_tab(data->path);
-   	free_env(&(data->env));
-    free_tab(data->env_array);
-    free_all_pipelines(data->all_pipes);
-    exit(err);
-}
+// void    free_exit(t_data *data, int err)
+// {
+//     free_tab(data->path);
+//    	free_env(&(data->env));
+//     free_tab(data->env_array);
+//     free_all_pipelines(data->all_pipes);
+//     exit(err);
+// }
 
 void	exec_cmd(t_data *data, char **arg)
 {

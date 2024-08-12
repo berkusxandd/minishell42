@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 20:50:08 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/08 21:44:31 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 00:11:33 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,7 @@ int	exec_builtins(t_data *data, t_pipeline *node)
 		ft_pwd();
 	else if (ft_strncmp(node->cmd[0], "unset", 6) == 0)
 		ft_unset(data, node->cmd);
+	else if (ft_strncmp(node->cmd[0], "exit", 5) == 0)
+		ft_exit(data, node->cmd);
 	return (1);
 }

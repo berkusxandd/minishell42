@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 02:23:28 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/08 20:30:46 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 00:27:39 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,7 @@ void	open_outfile(t_pipeline *node)
 		filepath = NULL;
 		fd = -1;
 		filepath = get_pathfile(node->outfiles[i]);
-		//i changed here
 		node->outfiles[i]--;
-		//--------
 		printf("path_out %s\n", filepath);
 		printf("fd_out init = %d\n", fd);
 		if (access(filepath, W_OK) == 0 || access(filepath, F_OK) == -1)
@@ -106,9 +104,7 @@ void	open_outfile(t_pipeline *node)
 			filepath = get_pathfile(node->outfiles[i]);
 			printf("path_out %s\n", filepath);
 			printf("fd_out init = %d\n", fd);
-			// i changed here
 			node->outfiles[i]--;
-			//----------
 			if (access(filepath, W_OK) == 0 || access(filepath, F_OK) == -1)
 			{
 				fd = open(filepath,  O_WRONLY | O_CREAT | O_APPEND, 0666);

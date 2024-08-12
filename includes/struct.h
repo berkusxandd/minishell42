@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 17:29:40 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/12 21:50:38 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 00:28:09 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ typedef struct s_data
 	int signal;
 }	t_data;
 
-// i changed here
 typedef struct s_signals
 {
 	int here_doc_quit;

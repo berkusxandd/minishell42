@@ -34,7 +34,6 @@ void	sig_heredoc(int status)
 	g_signals.here_doc_quit = 1;
 }
 
-// i changed here
 void handle_heredoc(char *delim, int fd)
 {
 	char	*line;
@@ -61,7 +60,6 @@ void handle_heredoc(char *delim, int fd)
 	}
 	lseek(fd, 0, SEEK_SET);
 }
-//i changed here
 void	heredocs(t_pipeline *pipeline)
 {
 	int		i;

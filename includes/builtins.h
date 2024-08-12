@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-yand <mel-yand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:03:41 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/07/08 21:29:54 by mel-yand         ###   ########.fr       */
+/*   Updated: 2024/08/13 00:10:32 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,7 @@ void	ft_export(t_data *data, char **arg);
 int		valid_name(t_data *data, char *arg);
 void	ft_pwd(void);
 void	ft_unset(t_data *data, char **arg);
-
+void		ft_exit(t_data *data, char **arg);
+int			only_digit(char *arg);
+int			is_too_big(char *cmd);
 #endif
