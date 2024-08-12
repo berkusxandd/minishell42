@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-void free_nns(t_nns *nns)
+void free_nns(t_nns *nns)  //when i delete this, undefined reference.
 {
 	if (nns)
 	{
@@ -20,6 +20,8 @@ int put_contents_to_nns(t_nns *nns, int i, int j, int k)
 	else
 		extended = 1;
 	char *wo_quote = cut_str(nns->newstr, i, j , extended);
+	if (!wo_quote)
+		return 0;
 	if (extended == 2)
 	{
 		if (nns->newstr[k] == -2)
@@ -34,7 +36,7 @@ int put_contents_to_nns(t_nns *nns, int i, int j, int k)
 		return 0;
 	}
 	tmp = nns->newstr;
-	nns->newstr = delete_part(tmp,i,j,k);
+	nns->newstr = delete_part(tmp,i,j,k); //when this is null, it still works idk why
 	free(tmp);
 	if (!nns->newstr)
 	{
@@ -108,6 +110,8 @@ t_nns *gen_token(t_nns *nns_old, char token)
 	char *newstr;
 
 	newstr = ft_strdup(nns_old->newstr);
+	if (!newstr)
+		return NULL;
 	free(nns_old->newstr);
 	free(nns_old);
 	if (!newstr)
@@ -147,6 +151,7 @@ char  **tokenization(t_nns **nns, char token)
 	int token_count;
 	int i;
 	char **tokens;
+
 	i = 0;
 	token_count = count_tokens((*nns)->newstr,token);
 	tokens = ft_calloc( sizeof(char*), (token_count + 1));
@@ -163,8 +168,14 @@ char  **tokenization(t_nns **nns, char token)
 		if ((*nns)->name)
 		{
 		tokens[i] = ft_strdup((*nns)->name);
-		//PROTECT MALLOC
 		free((*nns)->name);
+		(*nns)->name = NULL;
+		if (!tokens[i])
+		{
+			free_tab(tokens);
+			free_nns(*nns);
+			return NULL;
+		}
 		}
 		else
 			tokens[i] = NULL;

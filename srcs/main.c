@@ -133,11 +133,11 @@ int	input_quote_valid(char *input)
 
 void	handle_sigint(int sig)
 {
-	(void)sig;
-	ft_putstr_fd("\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+    (void)sig; 
+    ft_putstr_fd("\n", 1);
+    rl_on_new_line();
+    rl_replace_line("", 0);
+    rl_redisplay();
 }
 
 char	*input_prep(char *input_raw, t_data core)
@@ -164,10 +164,11 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	(void)env;
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, handle_sigint);
+
 	init_data(&core, env);
 	core.signal = 1;
+			signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, handle_sigint);
 	rl_catch_signals = 0;
 	while (core.signal != 0)
 	{
@@ -185,9 +186,7 @@ int	main(int argc, char **argv, char **env)
 			break ;
 		}
 		if (*input_raw)
-		{
 			add_history(input_raw);
-		}
 		if (input_quote_valid(input_raw) != 0)
 			ft_putstr_fd("(d)quote error\n", 1);
 		else
@@ -204,14 +203,14 @@ int	main(int argc, char **argv, char **env)
 						free(input);
 						if (pipelines_succeed == 0)
 						{
-							ft_putstr_fd("pipeline error\n", 1);
+							ft_putstr_fd("pipeline malloc error\n", 1);
 							free_all_pipelines(all_pipes);
 						}
 						else
 						{
 						core.all_pipes = all_pipes;
-						execution(&core);
-						free_all_pipelines(all_pipes);
+                        execution(&core);
+                        free_all_pipelines(all_pipes);
 						}
 					}
 				}
@@ -223,6 +222,5 @@ int	main(int argc, char **argv, char **env)
 	}
 	free_env(&(core.env));
 	free_tab(core.path);
-	// free_all_pipelines(all_pipes);
 	clear_history();
 }

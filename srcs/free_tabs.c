@@ -14,8 +14,10 @@ void free_nns(t_nns *nns)
 {
 	if (nns)
 	{
-		free(nns->name);
-		free(nns->newstr);
+		if (nns->name)
+			free(nns->name);
+		if (nns->newstr)
+			free(nns->newstr);
 		free(nns);
 	}
 }

@@ -11,12 +11,13 @@
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
+//i changed here
 void	wait_child(t_data *data, pid_t exit_status, int nb_process)
 {
 	int		status;
 	pid_t	child_pid;
 	int		i;
+	int term_sig;
 
 	i = 0;
 	while (i < nb_process)
@@ -26,6 +27,15 @@ void	wait_child(t_data *data, pid_t exit_status, int nb_process)
 		{
 			if (WIFEXITED(status))
 				data->status = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+			{
+				term_sig = WTERMSIG(status);
+
+				if (term_sig == SIGINT)
+					data->status = 128 + SIGINT;
+				else
+					data->status = 128 + term_sig;
+			}
 		}
 		i++;
 	}

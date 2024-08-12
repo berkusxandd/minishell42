@@ -72,7 +72,12 @@ char *create_parsed_str(int *i, int j, char *parsed_str, t_data core)
 	else
 	{
 		tmp_var_name = cut_str(parsed_str,*i,j,1);
+		if (!tmp_var_name)
+			return NULL;
 		parsed_str = find_val_put_str(parsed_str,*i,j,core);
+		if (!parsed_str)
+			return NULL;
+		//PROTECTION ---------------v
 		*i = j - 1 + ft_strlen(get_value(tmp_var_name,core.env));
 		free(tmp_var_name);
 	}
@@ -99,6 +104,8 @@ char *parse_input_args(char *input,t_data core)
 			while(parsed_str[i] && (ft_isalnum(parsed_str[i]) || parsed_str[i] == '_' ||  parsed_str[i] == '?'))
 				i++;
 			parsed_str = create_parsed_str(&i,j,parsed_str, core);
+			if (!parsed_str)
+				return NULL;
 		}
 		else
 			i++;

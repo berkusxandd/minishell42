@@ -1,5 +1,26 @@
 #include "../includes/minishell.h"
 
+void free_pipeline_2(t_pipeline *pipeline)
+{
+    int i;
+
+    i = 0;
+    if (pipeline->outfiles)
+    {
+        while (pipeline->outfiles[i])
+            free(pipeline->outfiles[i++]);
+        free(pipeline->outfiles);
+    }
+    i = 0;
+    if (pipeline->here_docs)
+    {
+        while (pipeline->here_docs[i])
+            free(pipeline->here_docs[i++]);
+        free(pipeline->here_docs);
+    }
+    if (pipeline->here_filename)
+        free(pipeline->here_filename);
+}
 void free_pipeline(t_pipeline *pipeline)
 {
 	int i;
@@ -18,22 +39,7 @@ void free_pipeline(t_pipeline *pipeline)
             free(pipeline->infiles[i++]);
         free(pipeline->infiles);
     }
-    i = 0;
-    if (pipeline->outfiles)
-    {
-        while (pipeline->outfiles[i])
-            free(pipeline->outfiles[i++]);
-        free(pipeline->outfiles);
-    }
-    i = 0;
-    if (pipeline->here_docs)
-    {
-        while (pipeline->here_docs[i])
-            free(pipeline->here_docs[i++]);
-        free(pipeline->here_docs);
-    }
-    if (pipeline->here_filename)
-        free(pipeline->here_filename);
+    free_pipeline_2(pipeline);
     free(pipeline);
 }
 

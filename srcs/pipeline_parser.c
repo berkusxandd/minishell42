@@ -46,6 +46,7 @@ t_pipeline *parser(char *input)
 int pipelines_creator(t_all_pipelines *all_pipes, char *input)
 {
 	char **pipelines_str;
+	int i;
 
 	input = parse_pipes_in_quotes(input);
 	pipelines_str = ft_split(input, '|');
@@ -56,7 +57,6 @@ int pipelines_creator(t_all_pipelines *all_pipes, char *input)
 	all_pipes->pipelines = ft_calloc(sizeof(t_pipeline), (pipe_counter + 2));
 	if (!all_pipes->pipelines)
 		return(error_0(pipelines_str));
-	int i;
 	i = 0;
 	while(pipelines_str[i])
 	{
