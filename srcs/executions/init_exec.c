@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 19:08:42 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/13 00:27:49 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 04:53:32 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,11 @@ void	execution(t_data *data)
 	creat_env_char(data);
 	creat_pipe(data->all_pipes->pipelines);
 	open_file(data);
+	if (g_signals.here_doc_quit == 1)
+	{
+		free_tab(data->env_array);
+		return ;
+	}
 	std_handler(data->all_pipes->pipelines, nb_process);
 	exit_status = launch_cmd(data, nb_process);
 	close_all_pipe(data->all_pipes);

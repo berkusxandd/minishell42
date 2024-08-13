@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:08:29 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/13 00:27:25 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 07:01:24 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,20 @@ char	*input_prep(char *input_raw, t_data core);
 int input_raw_checks(char *input_raw, t_data *core);
 char	*two_signs_handler(char *input);
 char *two_signs_handler_2(int i, char *new_input, int q_type);
-
+void	handle_sigint(int sig);
+char	**ft_split_str(char const *str);
+int	is_cur_token(char c, char token);
+char	**error_2(char **tokens);
+char	**error_1(char **tokens, t_nns *nns);
+char	*extend_outfile(t_nns *nns, int i, int j, int k);
+void	index_arranger(t_nns *nns, int *i, int *j, int quote_type);
+int	space_skip(t_nns *nns, int *quote_type, int i, int k);
+char **calloc_token_array(t_nns **nns, char token, int *token_count);
+char *put_tokens_in_array(t_nns **nns,int i, char **tokens);
+int	count_tokens(char *input, char token);
+void	handle_sigint(int sig);
+void	signal_init(t_data *core);
+int	sig_event(void);
+int	arg_conditions(char c);
 #endif
 

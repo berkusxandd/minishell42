@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_split_str.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/10 19:39:18 by bince             #+#    #+#             */
-/*   Updated: 2024/08/13 05:37:44 by bince            ###   ########.fr       */
+/*   Created: 2024/08/13 06:47:52 by bince             #+#    #+#             */
+/*   Updated: 2024/08/13 06:47:53 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/minishell.h"
 
-static int	ft_wordlen(char *str, char set)
+static int	ft_wordlen(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (str[i] != '\0' && str[i] != set)
+	while (str[i] != '\0' && is_set(str[i]) == 0)
 		++i;
 	return (i);
 }
 
-static char	*word_dupe(char *str, char set)
+static char	*word_dupe(char *str)
 {
 	int		i;
 	int		len;
 	char	*word;
 
 	i = 0;
-	len = ft_wordlen(str, set);
+	len = ft_wordlen(str);
 	word = malloc(sizeof(char) * (len + 1));
 	if (!word)
 	{
@@ -45,7 +45,7 @@ static char	*word_dupe(char *str, char set)
 	return (word);
 }
 
-static void	fill_words(char **array, char *str, char set)
+static void	fill_words(char **array, char *str)
 {
 	int	word_index;
 	int	i;
@@ -54,11 +54,11 @@ static void	fill_words(char **array, char *str, char set)
 	i = 0;
 	while (*str != '\0')
 	{
-		while (*str == set)
+		while (is_set(*str) == 1)
 			++str;
 		if (*str == '\0')
 			break ;
-		array[word_index] = word_dupe(str, set);
+		array[word_index] = word_dupe(str);
 		if (!array[word_index])
 		{
 			while (i < word_index)
@@ -67,58 +67,42 @@ static void	fill_words(char **array, char *str, char set)
 			return ;
 		}
 		++word_index;
-		while (*str != '\0' && *str != set)
+		while (*str != '\0' && is_set(*str) == 0)
 			++str;
 	}
 	array[word_index] = NULL;
 }
 
-static int	count_words(char *str, char set)
+static int	count_words(char *str)
 {
 	int	num_words;
 
 	num_words = 0;
 	while (*str != '\0')
 	{
-		while (*str == set)
+		while (is_set(*str) == 1)
 			++str;
 		if (*str != '\0')
 		{
 			++num_words;
-			while (*str != '\0' && *str != set)
+			while (*str != '\0' && is_set(*str) == 0)
 				++str;
 		}
 	}
 	return (num_words);
 }
 
-char	**ft_split(char const *str, char set)
+char	**ft_split_str(char const *str)
 {
 	int		num_words;
 	char	**array;
 
 	if (!str)
 		return (NULL);
-	num_words = count_words((char *)str, set);
+	num_words = count_words((char *)str);
 	array = malloc(sizeof(char *) * (num_words + 1));
 	if (!array)
 		return (NULL);
-	fill_words(array, (char *)str, set);
+	fill_words(array, (char *)str);
 	return (array);
 }
-// #include <stdio.h>
-// int main()
-// {
-// 	char **split = ft_split("  tripouille  42  ", ' ');
-
-// 	int i = 0;
-// 	while (split[i] != NULL)
-// 	{
-// 		printf("%s\n", split[i]);
-// 		i++;
-// 	}
-// 	if (split[i] == NULL)
-// 	{
-// 		printf("NULL");
-// 	}
-// }

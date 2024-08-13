@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 02:23:28 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/13 00:27:39 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 04:23:00 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,8 @@ void	open_file(t_data *data)
 	{
 		if (data->all_pipes->pipelines[i]->here_docs[0] != NULL)
 			heredocs(data->all_pipes->pipelines[i]);
+		if (g_signals.here_doc_quit == 1)
+			return ;
 		if (data->all_pipes->pipelines[i]->infiles[0] != NULL)
 		{
 			open_infile(data->all_pipes->pipelines[i]);

@@ -28,7 +28,7 @@ char	*get_namedoc(void)
 void	sig_heredoc(int status)
 {
 	(void)status;
-	rl_replace_line("\n", 0);
+	rl_replace_line("", 0);
 	rl_redisplay();
 	rl_done = 1;
 	g_signals.here_doc_quit = 1;
@@ -40,6 +40,7 @@ void handle_heredoc(char *delim, int fd)
 
 	signal(SIGINT, sig_heredoc);
 	g_signals.here_doc_quit = 0;
+	rl_catch_signals = 0;
 	while (1)
 	{
 		line = readline("> ");
@@ -58,6 +59,7 @@ void handle_heredoc(char *delim, int fd)
 		write(fd, "\n", 1);
 		free(line);
 	}
+	signal(SIGINT, handle_sigint);
 	lseek(fd, 0, SEEK_SET);
 }
 void	heredocs(t_pipeline *pipeline)
@@ -99,5 +101,3 @@ void	heredocs(t_pipeline *pipeline)
 		i++;
 	}
 }
-
-/*unlink at the and of exec and free filename to*/

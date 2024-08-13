@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input_operations.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/13 06:48:02 by bince             #+#    #+#             */
+/*   Updated: 2024/08/13 06:48:03 by bince            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-char *two_signs_handler_2(int i, char *new_input, int q_type)
+char	*two_signs_handler_2(int i, char *new_input, int q_type)
 {
 	if (new_input[i] == '>' && new_input[i + 1] == '>' && q_type == 0)
 	{
@@ -9,7 +21,7 @@ char *two_signs_handler_2(int i, char *new_input, int q_type)
 	}
 	else if (new_input[i] == '$' && q_type != 1)
 		new_input[i] = -3;
-	return new_input;
+	return (new_input);
 }
 
 char	*two_signs_handler(char *input)
@@ -33,12 +45,11 @@ char	*two_signs_handler(char *input)
 			new_input[i] = -1;
 			new_input[i + 1] = ' ';
 		}
-		new_input = two_signs_handler_2(i,new_input,q_type);
+		new_input = two_signs_handler_2(i, new_input, q_type);
 		i++;
 	}
 	return (new_input);
 }
-
 
 int	input_quote_valid(char *input)
 {
@@ -68,18 +79,18 @@ char	*input_prep(char *input_raw, t_data core)
 	return (input);
 }
 
-int input_raw_checks(char *input_raw, t_data *core)
+int	input_raw_checks(char *input_raw, t_data *core)
 {
 	if (input_raw == NULL)
 	{
 		ft_putstr_fd("exiting...\n", 1);
 		core->signal = 0;
-		return 0;
+		return (0);
 	}
 	else
 	{
 		if (*input_raw)
 			add_history(input_raw);
-		return 1;
+		return (1);
 	}
 }

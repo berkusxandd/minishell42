@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_tabs.c                                        :+:      :+:    :+:   */
+/*   extend_outfile.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 06:47:30 by bince             #+#    #+#             */
-/*   Updated: 2024/08/13 06:47:31 by bince            ###   ########.fr       */
+/*   Created: 2024/08/13 06:47:14 by bince             #+#    #+#             */
+/*   Updated: 2024/08/13 06:47:16 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	free_str_tab(char **tab)
+char	*extend_outfile(t_nns *nns, int i, int j, int k)
 {
-	int	i;
+	int		extended;
+	char	*wo_quote;
 
-	i = 0;
-	while (tab[i])
-		free(tab[i++]);
-	free(tab);
-}
-
-void	free_nns(t_nns *nns)
-{
-	if (nns)
+	if (nns->newstr[k] == -2 || nns->newstr[k] == '>')
+		extended = 2;
+	else
+		extended = 1;
+	wo_quote = cut_str(nns->newstr, i, j, extended);
+	if (!wo_quote)
+		return (NULL);
+	if (extended == 2)
 	{
-		if (nns->name)
-			free(nns->name);
-		if (nns->newstr)
-			free(nns->newstr);
-		free(nns);
+		if (nns->newstr[k] == -2)
+			wo_quote[0] = 'x';
+		else
+			wo_quote[0] = '0';
 	}
+	return (wo_quote);
 }

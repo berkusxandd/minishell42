@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_tabs.c                                        :+:      :+:    :+:   */
+/*   err_handle.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 06:47:30 by bince             #+#    #+#             */
-/*   Updated: 2024/08/13 06:47:31 by bince            ###   ########.fr       */
+/*   Created: 2024/08/13 06:44:34 by bince             #+#    #+#             */
+/*   Updated: 2024/08/13 06:44:36 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	free_str_tab(char **tab)
+char	**error_1(char **tokens, t_nns *nns)
 {
-	int	i;
-
-	i = 0;
-	while (tab[i])
-		free(tab[i++]);
-	free(tab);
+	free_tab(tokens);
+	free_nns(nns);
+	return (NULL);
 }
 
-void	free_nns(t_nns *nns)
+char	**error_2(char **tokens)
 {
-	if (nns)
-	{
-		if (nns->name)
-			free(nns->name);
-		if (nns->newstr)
-			free(nns->newstr);
-		free(nns);
-	}
+	free_tab(tokens);
+	return (NULL);
 }

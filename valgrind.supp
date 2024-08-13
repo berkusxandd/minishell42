@@ -3,4 +3,20 @@
   Memcheck:Leak
   fun:readline
   fun:xmalloc
+  fun:xrealloc
+  fun:xstrdup
+  fun:readline
+  fun:rl_initialize
+  fun:rl_reset
+}
+
+{
+  tinfo_suppression
+  Memcheck:Leak
+  fun:_nc_tparm_analyze
+  fun:_nc_doalloc
+  fun:_nc_setupterm
+  fun:_nc_read_termtype
+  fun:_nc_read_entry2
+  fun:_nc_tiparm
 }

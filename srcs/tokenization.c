@@ -10,28 +10,6 @@ void	free_nns(t_nns *nns) // when i delete this, undefined reference.
 	}
 }
 
-char	*extend_outfile(t_nns *nns, int i, int j, int k)
-{
-	int		extended;
-	char	*wo_quote;
-
-	if (nns->newstr[k] == -2 || nns->newstr[k] == '>')
-		extended = 2;
-	else
-		extended = 1;
-	wo_quote = cut_str(nns->newstr, i, j, extended);
-	if (!wo_quote)
-		return (NULL);
-	if (extended == 2)
-	{
-		if (nns->newstr[k] == -2)
-			wo_quote[0] = 'x';
-		else
-			wo_quote[0] = '0';
-	}
-	return (wo_quote);
-}
-
 int	put_contents_to_nns(t_nns *nns, int i, int j, int k)
 {
 	char	*tmp;
@@ -55,47 +33,6 @@ int	put_contents_to_nns(t_nns *nns, int i, int j, int k)
 		return (0);
 	}
 	return (1);
-}
-
-int	space_skip(t_nns *nns, int *quote_type, int i, int k)
-{
-	int	local_quote_type;
-
-	local_quote_type = *quote_type;
-	*quote_type = quote_check(nns->newstr[i], local_quote_type);
-	local_quote_type = *quote_type;
-	while (is_set(nns->newstr[i]) == 1 && nns->newstr[i]
-		&& local_quote_type == 0)
-		i++;
-	if (k != i - 1)
-		*quote_type = quote_check(nns->newstr[i], local_quote_type);
-	return (i);
-}
-
-int	is_cur_token(char c, char token)
-{
-	if (token == '>' || token == -2)
-	{
-		if (c == '>' || c == -2)
-			return (1);
-		else
-			return (0);
-	}
-	else
-		return (c == token);
-}
-
-void	index_arranger(t_nns *nns, int *i, int *j, int quote_type)
-{
-	int	tmp_i;
-
-	tmp_i = *i;
-	*j = tmp_i;
-	while (nns->newstr[tmp_i] != '\0' && ((quote_type != 0)
-			|| (is_token(nns->newstr[tmp_i]) == 0
-				&& is_set(nns->newstr[tmp_i]) == 0)))
-		quote_type = quote_check(nns->newstr[++tmp_i], quote_type);
-	*i = tmp_i;
 }
 
 t_nns	*find_token(t_nns *nns, char token)
@@ -146,33 +83,6 @@ t_nns	*gen_token(t_nns *nns_old, char token)
 	nns = find_token(nns, token);
 	return (nns);
 }
-
-int	count_tokens(char *input, char token)
-{
-	int	i;
-	int	count;
-	int	quote_type;
-
-	quote_type = 0;
-	count = 0;
-	i = 0;
-	while (input[i])
-	{
-		quote_type = quote_check(input[i], quote_type);
-		if (is_cur_token(input[i], token) != 0 && quote_type == 0)
-			count++;
-		i++;
-	}
-	return count;
-}
-
-char	**error_1(char **tokens, t_nns *nns)
-{
-	free_tab(tokens);
-	free_nns(nns);
-	return NULL;
-}
-
 char	**tokenization(t_nns **nns, char token)
 {
 	int		token_count;
@@ -180,23 +90,17 @@ char	**tokenization(t_nns **nns, char token)
 	char	**tokens;
 
 	i = 0;
-	token_count = count_tokens((*nns)->newstr, token);
-	tokens = ft_calloc(sizeof(char *), (token_count + 1));
+	tokens = calloc_token_array(nns,token, &token_count);
 	if (!tokens)
 		return NULL;
 	while (i < token_count)
 	{
 		*nns = gen_token(*nns, token);
 		if (!(*nns))
-		{
-			free_tab(tokens);
-			return NULL;
-		}
+			return(error_2(tokens));
 		if ((*nns)->name)
 		{
-			tokens[i] = ft_strdup((*nns)->name);
-			free((*nns)->name);
-			(*nns)->name = NULL;
+			tokens[i] = put_tokens_in_array(nns,i,tokens);
 			if (!tokens[i])
 				return (error_1(tokens, (*nns)));
 		}
