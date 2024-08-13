@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 20:23:24 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/13 11:47:46 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 12:43:59 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	creat_env_char(t_data *data)
 	{
 		if (tmp_env->value != NULL)
 		{
-			var_tmp = ft_strjoin("=",tmp_env->value);
+			var_tmp = ft_strjoin("=", tmp_env->value);
 			env_array[i] = ft_strjoin(tmp_env->var, var_tmp);
 			if (var_tmp != NULL)
 				free(var_tmp);
@@ -88,11 +88,8 @@ char	*get_cmd_path(t_data *data, char **arg)
 	char	*tmp_path;
 
 	i = 0;
-
-	// i added this part ---------
 	if (!data->path)
-		return NULL;
-	//------------------------
+		return (NULL);
 	if (arg == NULL || arg[0][0] == '/' || arg[0][0] == '.')
 		return (get_cmd_path_2(arg));
 	cmd = arg[0];

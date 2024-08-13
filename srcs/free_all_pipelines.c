@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 06:47:21 by bince             #+#    #+#             */
-/*   Updated: 2024/08/13 06:47:24 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 12:52:06 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	free_pipeline_2(t_pipeline *pipeline)
 	if (pipeline->here_filename)
 		free(pipeline->here_filename);
 }
+
 void	free_pipeline(t_pipeline *pipeline)
 {
 	int	i;

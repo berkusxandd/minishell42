@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipeline_parser.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/13 12:59:12 by bince             #+#    #+#             */
+/*   Updated: 2024/08/13 12:59:23 by bince            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 t_pipeline	*parser_2(t_pipeline *pipeline, t_nns **nns)
@@ -28,6 +40,7 @@ t_pipeline	*parser_2(t_pipeline *pipeline, t_nns **nns)
 	}
 	return (pipeline);
 }
+
 t_pipeline	*parser(char *input)
 {
 	t_nns		*nns;

@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 18:50:30 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/04 17:41:40 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 12:35:46 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ void	cd_home(t_data *data, char *path)
 
 void	ft_cd(t_data *data, char **arg)
 {
-	char *path;
-	char pwd[4096];
+	char	*path;
+	char	pwd[4096];
 
 	if (count_str(arg) > 2)
 	{

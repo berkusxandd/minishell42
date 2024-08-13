@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 06:44:27 by bince             #+#    #+#             */
-/*   Updated: 2024/08/13 07:00:39 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 12:51:19 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	is_token(char c)
 	else
 		return (0);
 }
+
 int	is_set(char c)
 {
 	if (c == 32 || (c >= 9 && c <= 13))
@@ -39,6 +40,7 @@ int	is_cur_token(char c, char token)
 	else
 		return (c == token);
 }
+
 int	arg_conditions(char c)
 {
 	if (ft_isalnum(c) || c == '_' || c == '?')

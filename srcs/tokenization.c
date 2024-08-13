@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenization.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/13 13:11:34 by bince             #+#    #+#             */
+/*   Updated: 2024/08/13 13:11:34 by bince            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-void	free_nns(t_nns *nns) // when i delete this, undefined reference.
+void	free_nns(t_nns *nns)
 {
 	if (nns)
 	{
@@ -83,6 +95,7 @@ t_nns	*gen_token(t_nns *nns_old, char token)
 	nns = find_token(nns, token);
 	return (nns);
 }
+
 char	**tokenization(t_nns **nns, char token)
 {
 	int		token_count;
@@ -90,17 +103,17 @@ char	**tokenization(t_nns **nns, char token)
 	char	**tokens;
 
 	i = 0;
-	tokens = calloc_token_array(nns,token, &token_count);
+	tokens = calloc_token_array(nns, token, &token_count);
 	if (!tokens)
-		return NULL;
+		return (NULL);
 	while (i < token_count)
 	{
 		*nns = gen_token(*nns, token);
 		if (!(*nns))
-			return(error_2(tokens));
+			return (error_2(tokens));
 		if ((*nns)->name)
 		{
-			tokens[i] = put_tokens_in_array(nns,i,tokens);
+			tokens[i] = put_tokens_in_array(nns, i, tokens);
 			if (!tokens[i])
 				return (error_1(tokens, (*nns)));
 		}
@@ -109,5 +122,5 @@ char	**tokenization(t_nns **nns, char token)
 		i++;
 	}
 	tokens[i] = NULL;
-	return tokens;
+	return (tokens);
 }

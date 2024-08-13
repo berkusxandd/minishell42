@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 17:58:40 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/13 11:56:20 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 12:44:21 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	init_env(t_data *data, char **env)
 			return (EXIT_FAILURE);
 		if (ft_strncmp(tmp[0], "SHLVL", 6) == 0)
 			shlvl = shlvl_up(data, tmp[1]);
-		else if(ft_strncmp(tmp[0], "PWD", 4) == 0)
+		else if (ft_strncmp(tmp[0], "PWD", 4) == 0)
 			pwd = set_pwd(data);
 		else if (tmp != NULL)
 			ft_lstadd_back(&data->env, ft_lstnew(tmp[0], tmp[1]));
@@ -79,7 +79,6 @@ int	init_data(t_data *data, char **env)
 	data->env = NULL;
 	data->env_array = NULL;
 	data->path = ft_split(getenv("PATH"), ':');
-
 	if (env && *env)
 	{
 		if (init_env(data, env) == EXIT_FAILURE)

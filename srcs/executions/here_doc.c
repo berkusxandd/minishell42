@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   here_doc.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/13 13:14:04 by bince             #+#    #+#             */
+/*   Updated: 2024/08/13 13:14:26 by bince            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 char	*get_namedoc(void)
@@ -34,15 +46,15 @@ void	sig_heredoc(int status)
 	g_signals.here_doc_quit = 1;
 }
 
-int here_doc_condition(char *line, char *delim)
+int	here_doc_condition(char *line, char *delim)
 {
-	if (!ft_strncmp(line, delim,ft_strlen(line)) && ft_strlen(line) > 0)
-		return 1;
+	if (!ft_strncmp(line, delim, ft_strlen(line)) && ft_strlen(line) > 0)
+		return (1);
 	else
-		return 0;
+		return (0);
 }
 
-void handle_heredoc(char *delim, int fd)
+void	handle_heredoc(char *delim, int fd)
 {
 	char	*line;
 
@@ -58,7 +70,7 @@ void handle_heredoc(char *delim, int fd)
 				2);
 			break ;
 		}
-		if ((here_doc_condition(line,delim)) || g_signals.here_doc_quit == 1)
+		if ((here_doc_condition(line, delim)) || g_signals.here_doc_quit == 1)
 		{
 			free(line);
 			break ;
@@ -70,6 +82,7 @@ void handle_heredoc(char *delim, int fd)
 	signal(SIGINT, handle_sigint);
 	lseek(fd, 0, SEEK_SET);
 }
+
 void	heredocs(t_pipeline *pipeline)
 {
 	int		i;
@@ -85,16 +98,16 @@ void	heredocs(t_pipeline *pipeline)
 		{
 			perror("Error open");
 			free(filename);
-			return;
+			return ;
 		}
 		handle_heredoc(pipeline->here_docs[i], fd);
 		if (g_signals.here_doc_quit)
-        {
-            close(fd);
-            unlink(filename);
-            free(filename);
-            return;
-        }
-		heredocs_2(pipeline,&i,fd, filename);
+		{
+			close(fd);
+			unlink(filename);
+			free(filename);
+			return ;
+		}
+		heredocs_2(pipeline, &i, fd, filename);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:45:22 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/13 11:43:21 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 12:36:16 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	modif_var(t_data *data, char **arg, int empty)
 {
-	t_list *env;
+	t_list	*env;
 
 	env = find(data, arg[0]);
 	free(env->value);
@@ -28,7 +28,7 @@ void	modif_var(t_data *data, char **arg, int empty)
 
 int	is_new_var(t_data *data, char *varname)
 {
-	t_list *env;
+	t_list	*env;
 
 	env = find(data, varname);
 	if (env == NULL)
