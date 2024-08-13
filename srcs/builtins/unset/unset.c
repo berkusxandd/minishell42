@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 22:50:47 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/08 18:13:28 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 11:44:52 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,13 @@ void	del_var(t_data *data, char *varnam, int *first)
 		if (ft_strncmp(var_env->var, "PATH", 5) == 0)
 		{
 			free_tab(data->path);
-			//i added this part
 			data->path = NULL;
-			//-------------
 		}
 		if (var_env == data->env)
 			data->env = var_env->next;
 		ft_lstdelone(var_env, free);
+		data->status = 0;
 	}
-	data->status = 0;
 }
 
 void	ft_unset(t_data *data, char **arg)

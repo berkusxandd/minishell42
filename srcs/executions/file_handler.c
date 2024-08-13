@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 02:23:28 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/13 04:23:00 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 11:45:51 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,19 @@ char	*get_pathfile(char *filename)
 	free(tmp);
 	return (filepath);
 }
-
+void	file_error(t_pipeline *node, char *filepath, int err)
+{
+	if (err == 1)
+	{
+		perror("Minishell: Error INF");
+		node->infile_fd = -1;
+	}
+	else if (err == 2)
+	{
+		perror("Minishell: Error OUTF");
+		node->infile_fd = -1;
+	}
+}
 void	open_infile(t_pipeline *node)
 {
 	int		i;
@@ -48,22 +60,67 @@ void	open_infile(t_pipeline *node)
 		filepath = NULL;
 		fd = -1;
 		filepath = get_pathfile(node->infiles[i]);
-		printf("path_in %s\n", filepath);
-		printf("fd_in init = %d\n", fd);
 		if (access(filepath, R_OK) == 0)
 		{
 			fd = open(filepath, O_RDONLY);
-			printf("fd0_in = %d\n", fd);
 			if (node->infiles[i + 1] == NULL && fd != -1)
 				node->infile_fd = fd;
-			else
+			else if (fd != -1)
 				close(fd);
+			else if (fd == -1)
+				return (free(filepath), file_error(node, filepath, 1));
 		}
 		else
-			perror("Minishell: Error INF");
+			return (free(filepath), file_error(node, filepath, 1));
 		free(filepath);
 		i++;
 	}
+}
+
+int	open_outfile_0(t_pipeline *node, char *filepath, int fd, int i)
+{
+	node->outfiles[i]++;
+	filepath = NULL;
+	fd = -1;
+	filepath = get_pathfile(node->outfiles[i]);
+	node->outfiles[i]--;
+	if (access(filepath, W_OK) == 0 || access(filepath, F_OK) == -1)
+	{
+		fd = open(filepath, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+		if (node->outfiles[i + 1] == NULL && fd != -1)
+			node->outfile_fd = fd;
+		else if (fd != -1)
+			close(fd);
+		else if (fd == -1)
+			return (free(filepath), EXIT_FAILURE);
+	}
+	else
+		return (free(filepath), EXIT_FAILURE);
+	free(filepath);
+	return (EXIT_SUCCESS);
+}
+
+int	open_outfile_x(t_pipeline *node, char *filepath, int fd, int i)
+{
+	node->outfiles[i]++;
+	filepath = NULL;
+	fd = -1;
+	filepath = get_pathfile(node->outfiles[i]);
+	node->outfiles[i]--;
+	if (access(filepath, W_OK) == 0 || access(filepath, F_OK) == -1)
+	{
+		fd = open(filepath,  O_WRONLY | O_CREAT | O_APPEND, 0666);
+		if (node->outfiles[i + 1] == NULL && fd != -1)
+			node->outfile_fd = fd;
+		else if (fd != -1)
+			close(fd);
+		else if (fd == -1)
+			return (free(filepath), EXIT_FAILURE);
+	}
+	else
+		return (free(filepath), EXIT_FAILURE);
+	free(filepath);
+	return (EXIT_SUCCESS);
 }
 void	open_outfile(t_pipeline *node)
 {
@@ -76,49 +133,14 @@ void	open_outfile(t_pipeline *node)
 	{
 		if (node->outfiles[i][0] == '0')
 		{
-		node->outfiles[i]++;
-		filepath = NULL;
-		fd = -1;
-		filepath = get_pathfile(node->outfiles[i]);
-		node->outfiles[i]--;
-		printf("path_out %s\n", filepath);
-		printf("fd_out init = %d\n", fd);
-		if (access(filepath, W_OK) == 0 || access(filepath, F_OK) == -1)
-		{
-			fd = open(filepath, O_WRONLY | O_CREAT | O_TRUNC, 0666);
-			printf("fd0_out = %d\n", fd);
-			if (node->outfiles[i + 1] == NULL && fd != -1)
-				node->outfile_fd = fd;
-			else
-				close(fd);
-		}
-		else
-			perror("Minishell: Error OUTF");
-		free(filepath);
+			if (open_outfile_0(node, filepath, fd, i) == EXIT_FAILURE)
+				return (file_error(node, filepath, 2));
 		}
 		else if (node->outfiles[i][0] == 'x')
 		{
-			node->outfiles[i]++;
-			filepath = NULL;
-			fd = -1;
-			filepath = get_pathfile(node->outfiles[i]);
-			printf("path_out %s\n", filepath);
-			printf("fd_out init = %d\n", fd);
-			node->outfiles[i]--;
-			if (access(filepath, W_OK) == 0 || access(filepath, F_OK) == -1)
-			{
-				fd = open(filepath,  O_WRONLY | O_CREAT | O_APPEND, 0666);
-				printf("fd0_out = %d\n", fd);
-				if (node->outfiles[i + 1] == NULL && fd != -1)
-					node->outfile_fd = fd;
-				else
-					close(fd);
-			}
-			else
-				perror("Minishell: Error OUTF");
-			free(filepath);
+			if (open_outfile_x(node, filepath, fd, i) == EXIT_FAILURE)
+				return (file_error(node, filepath, 2));
 		}
-
 		i++;
 	}
 }
@@ -133,18 +155,10 @@ void	open_file(t_data *data)
 	{
 		if (data->all_pipes->pipelines[i]->here_docs[0] != NULL)
 			heredocs(data->all_pipes->pipelines[i]);
-		if (g_signals.here_doc_quit == 1)
-			return ;
 		if (data->all_pipes->pipelines[i]->infiles[0] != NULL)
-		{
 			open_infile(data->all_pipes->pipelines[i]);
-			printf("fd1_in = %d\n", data->all_pipes->pipelines[i]->infile_fd);
-		}
 		if (data->all_pipes->pipelines[i]->outfiles[0] != NULL)
-		{
 			open_outfile(data->all_pipes->pipelines[i]);
-			printf("fd1_out = %d\n", data->all_pipes->pipelines[i]->outfile_fd);
-		}
 		i++;
 	}
 }

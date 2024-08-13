@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:34:46 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/13 00:20:40 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 11:57:48 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	ft_exit(t_data *data, char **arg)
 		else
 		{
 			err = ft_atoi(arg[1]);
-			// printf("nb = %s, err = %lld\n", arg[i], err);
 			if (err < 0)
 				data->status = 256 - ((err * -1) % 256);
 			else

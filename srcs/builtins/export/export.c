@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:45:22 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/13 00:07:47 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 11:43:21 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	ft_export(t_data *data, char **arg)
 	int	i;
 
 	i = 1;
+	data->status = 0;
 	if (arg[i])
 	{
 		while (arg[i])

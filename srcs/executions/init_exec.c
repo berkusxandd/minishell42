@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 19:08:42 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/13 04:53:32 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 11:46:45 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,20 @@ void	exec_cmd(t_data *data, char **arg)
 
 void	child(t_data *data)
 {
-	if (dup2(data->all_pipes->pipelines[data->index]->infile_fd, READ) == -1)
-		return (perror("Minishell: Error"));
-	if (dup2(data->all_pipes->pipelines[data->index]->outfile_fd, WRITE) == -1)
-		return (perror("Minishell: Error"));
+	if (data->all_pipes->pipelines[data->index]->infile_fd == -1)
+		free_exit(data, EXIT_FAILURE);
+	else
+	{
+		if (dup2(data->all_pipes->pipelines[data->index]->infile_fd, READ) == -1)
+			return (perror("Minishell: Error"));
+	}
+	if (data->all_pipes->pipelines[data->index]->outfile_fd == -1)
+		free_exit(data, EXIT_FAILURE);
+	else
+	{
+		if (dup2(data->all_pipes->pipelines[data->index]->outfile_fd, WRITE) == -1)
+			return (perror("Minishell: Error"));
+	}
 	close_all_pipe(data->all_pipes);
 	if (exec_builtins(data, data->all_pipes->pipelines[data->index]) == 1)
 	{

@@ -6,19 +6,20 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 17:58:40 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/04 17:42:17 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 11:56:20 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	shlvl_up(t_data *data, char *lvl)
+static int	shlvl_up(t_data *data, char *lvl)
 {
 	char	*lvlup;
 
 	lvlup = ft_itoa(ft_atoi(lvl) + 1);
 	ft_lstadd_back(&data->env, ft_lstnew("SHLVL", lvlup));
 	free(lvlup);
+	return (1);
 }
 
 static int	set_pwd(t_data *data)
@@ -33,13 +34,18 @@ static int	set_pwd(t_data *data)
 
 static void	check_pwd_shlvl(t_data *data, int pwd, int shlvl)
 {
+	t_list	*old;
+
+	old = find(data, "OLDPWD");
+	if (old == NULL)
+		ft_lstadd_back(&data->env, ft_lstnew("OLDPWD", NULL));
 	if (pwd == 0)
 		ft_lstadd_back(&data->env, ft_lstnew("PWD", getcwd(NULL, 0)));
 	if (shlvl == 0)
 		ft_lstadd_back(&data->env, ft_lstnew("SHLVL", "1"));
 }
 
-static void	init_env(t_data *data, char **env)
+int	init_env(t_data *data, char **env)
 {
 	int		i;
 	char	**tmp;
@@ -52,12 +58,10 @@ static void	init_env(t_data *data, char **env)
 	while (env[i] != NULL)
 	{
 		tmp = ft_split(env[i], '=');
-		// printf("%s\n", tmp[0]);
+		if (tmp == NULL)
+			return (EXIT_FAILURE);
 		if (ft_strncmp(tmp[0], "SHLVL", 6) == 0)
-		{
-			shlvl_up(data, tmp[1]);
-			shlvl = 1;
-		}
+			shlvl = shlvl_up(data, tmp[1]);
 		else if(ft_strncmp(tmp[0], "PWD", 4) == 0)
 			pwd = set_pwd(data);
 		else if (tmp != NULL)
@@ -66,9 +70,10 @@ static void	init_env(t_data *data, char **env)
 		i++;
 	}
 	check_pwd_shlvl(data, pwd, shlvl);
+	return (EXIT_SUCCESS);
 }
 
-void	init_data(t_data *data, char **env)
+int	init_data(t_data *data, char **env)
 {
 	data->status = 0;
 	data->env = NULL;
@@ -76,10 +81,15 @@ void	init_data(t_data *data, char **env)
 	data->path = ft_split(getenv("PATH"), ':');
 
 	if (env && *env)
-		init_env(data, env);
+	{
+		if (init_env(data, env) == EXIT_FAILURE)
+			return (-1);
+	}
 	else
 	{
 		ft_lstadd_back(&data->env, ft_lstnew("PWD", getcwd(NULL, 0)));
 		ft_lstadd_back(&data->env, ft_lstnew("SHLVL", "1"));
+		ft_lstadd_back(&data->env, ft_lstnew("OLDPWD", NULL));
 	}
+	return (0);
 }

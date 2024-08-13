@@ -3,21 +3,21 @@
 
 t_signals	g_signals = {0};
 
-int pipe_check(t_all_pipelines *all_pipes)
+int	pipe_check(t_all_pipelines *all_pipes)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (all_pipes->pipelines[i])
 	{
-		if(all_pipes->pipelines[i]->cmd)
+		if (all_pipes->pipelines[i]->cmd)
 		{
 			if (all_pipes->pipelines[i]->cmd[0] == NULL)
-				return -1;
+				return (-1);
 		}
 		i++;
 	}
-	return 1;
+	return (1);
 }
 
 void	execute_input(char *input, t_data *core)
@@ -35,9 +35,9 @@ void	execute_input(char *input, t_data *core)
 		{
 			if (pipe_check(core->all_pipes) != -1)
 			{
-			execution(core);
-			if (g_signals.here_doc_quit == 1)
-				g_signals.here_doc_quit = 0;
+				execution(core);
+				if (g_signals.here_doc_quit == 1)
+					g_signals.here_doc_quit = 0;
 			}
 			else
 				error_empty_pipe(core);
@@ -58,7 +58,6 @@ void	exit_handler(t_data *core)
 	clear_history();
 	exit(exit_status);
 }
-
 
 int	ms_loop(t_data *core)
 {
@@ -92,16 +91,20 @@ int	ms_loop(t_data *core)
 int	main(int argc, char **argv, char **env)
 {
 	t_data	core;
+	int		data_init;
 
 	(void)argc;
 	(void)argv;
 	(void)env;
-	init_data(&core, env);
-	signal_init(&core);
-	while (core.signal != 0)
+	data_init = init_data(&core, env);
+	if (data_init == 0)
 	{
-		if (ms_loop(&core) == -1)
-			break ;
+		signal_init(&core);
+		while (core.signal != 0)
+		{
+			if (ms_loop(&core) == -1)
+				break ;
+		}
 	}
 	exit_handler(&core);
 }
