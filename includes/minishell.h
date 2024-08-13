@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:08:29 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/13 07:01:24 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 11:07:37 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,8 @@ void	handle_sigint(int sig);
 void	signal_init(t_data *core);
 int	sig_event(void);
 int	arg_conditions(char c);
+void error_empty_pipe(t_data *core);
+void error_pipeline_malloc(t_data *core);
+void heredocs_2(t_pipeline *pipeline, int *i, int fd, char *filename);
 #endif
 

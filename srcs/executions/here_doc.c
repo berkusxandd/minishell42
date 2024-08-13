@@ -34,6 +34,14 @@ void	sig_heredoc(int status)
 	g_signals.here_doc_quit = 1;
 }
 
+int here_doc_condition(char *line, char *delim)
+{
+	if (!ft_strncmp(line, delim,ft_strlen(line)) && ft_strlen(line) > 0)
+		return 1;
+	else
+		return 0;
+}
+
 void handle_heredoc(char *delim, int fd)
 {
 	char	*line;
@@ -50,7 +58,7 @@ void handle_heredoc(char *delim, int fd)
 				2);
 			break ;
 		}
-		if ((!ft_strncmp(line, delim,ft_strlen(line)) && ft_strlen(line) > 0) || g_signals.here_doc_quit == 1)
+		if ((here_doc_condition(line,delim)) || g_signals.here_doc_quit == 1)
 		{
 			free(line);
 			break ;
@@ -87,17 +95,6 @@ void	heredocs(t_pipeline *pipeline)
             free(filename);
             return;
         }
-		if (pipeline->here_docs[i + 1] != NULL)
-		{
-			close(fd);
-			unlink(filename);
-			free(filename);
-		}
-		else
-		{
-			pipeline->infile_fd = fd;
-			pipeline->here_filename = filename;
-		}
-		i++;
+		heredocs_2(pipeline,&i,fd, filename);
 	}
 }

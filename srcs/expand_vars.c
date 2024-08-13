@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 17:48:57 by bince             #+#    #+#             */
-/*   Updated: 2024/08/13 06:47:06 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 09:24:15 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*find_val_put_str(char *parsed_str, int i, int j, t_data core)
 		var_value = ft_itoa(core.status);
 		free(var_name);
 		parsed_str = put_str_in_str(parsed_str, var_value, j - 1, j);
-		return (parsed_str);
+		return (free(var_value),parsed_str);
 	}
 	else if (ft_isdigit(var_name[0]))
 	{

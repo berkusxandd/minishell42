@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 06:47:34 by bince             #+#    #+#             */
-/*   Updated: 2024/08/13 06:47:36 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 08:53:45 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ char	*parse_pipes_in_quotes(char *str)
 
 	q_type = 0;
 	i = 0;
+
+	if (ft_strlen(str) < 2)
+		return str;
 	while (str[i + 1])
 	{
 		q_type = quote_check(str[i], q_type);

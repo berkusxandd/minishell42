@@ -3,6 +3,23 @@
 
 t_signals	g_signals = {0};
 
+int pipe_check(t_all_pipelines *all_pipes)
+{
+	int i;
+
+	i = 0;
+	while (all_pipes->pipelines[i])
+	{
+		if(all_pipes->pipelines[i]->cmd)
+		{
+			if (all_pipes->pipelines[i]->cmd[0] == NULL)
+				return -1;
+		}
+		i++;
+	}
+	return 1;
+}
+
 void	execute_input(char *input, t_data *core)
 {
 	int	pipelines_succeed;
@@ -13,15 +30,17 @@ void	execute_input(char *input, t_data *core)
 		pipelines_succeed = pipelines_creator(core->all_pipes, input);
 		free(input);
 		if (pipelines_succeed == 0)
-		{
-			ft_putstr_fd("pipeline malloc error\n", 1);
-			free_all_pipelines(core->all_pipes);
-		}
+			error_pipeline_malloc(core);
 		else
 		{
+			if (pipe_check(core->all_pipes) != -1)
+			{
 			execution(core);
 			if (g_signals.here_doc_quit == 1)
 				g_signals.here_doc_quit = 0;
+			}
+			else
+				error_empty_pipe(core);
 			free_all_pipelines(core->all_pipes);
 		}
 	}
@@ -54,6 +73,8 @@ int	ms_loop(t_data *core)
 		return (-1);
 	if (input_quote_valid(input_raw) != 0)
 		ft_putstr_fd("(d)quote error\n", 1);
+	else if (input_raw[0] == '|')
+		error_empty_pipe(core);
 	else
 	{
 		if (input_raw[0] != '\0')
@@ -65,8 +86,7 @@ int	ms_loop(t_data *core)
 				ft_putstr_fd("malloc error.\n", 2);
 		}
 	}
-	free(input_raw);
-	return (1);
+	return (free(input_raw), 1);
 }
 
 int	main(int argc, char **argv, char **env)
