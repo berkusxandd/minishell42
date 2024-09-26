@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 19:08:42 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/13 12:43:43 by bince            ###   ########.fr       */
+/*   Updated: 2024/09/18 16:27:02 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,13 @@ int	launch_cmd(t_data *data, int nb_process)
 	while (tmp[i] && exit_status != -1 && i < nb_process)
 	{
 		data->index = i;
-		tmp[i]->pid = start_exec(data);
+		// bince changed here
+		if (tmp[i]->cmd[0] == NULL)
+			tmp[i]->pid = 0;
+		else
+			tmp[i]->pid = start_exec(data);
 		exit_status = tmp[i]->pid;
+		/////////////
 		i++;
 	}
 	return (exit_status);
@@ -96,7 +101,13 @@ void	execution(t_data *data)
 	nb_process = count_cmd(data);
 	creat_env_char(data);
 	creat_pipe(data->all_pipes->pipelines);
-	open_file(data);
+	if (open_file(data) == -1)
+	{
+		close_all_pipe(data->all_pipes);
+		close_here_doc(data->all_pipes);
+		data->status = 1;
+		return (free_tab(data->env_array));
+	}
 	if (g_signals.here_doc_quit == 1)
 	{
 		free_tab(data->env_array);

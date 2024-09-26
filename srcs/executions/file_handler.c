@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 02:23:28 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/13 13:13:30 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 19:45:35 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,20 @@ char	*get_pathfile(char *filename)
 		return (NULL);
 	tmp = ft_strjoin("/", filename);
 	if (tmp == NULL)
-		return (NULL);
+		return (free(pwd), NULL);
 	filepath = ft_strjoin(pwd, tmp);
 	if (filepath == NULL)
+	{
+		free(pwd);
+		free(tmp);
 		return (NULL);
+	}
 	free(pwd);
 	free(tmp);
 	return (filepath);
 }
 
-void	file_error(t_pipeline *node, char *filepath, int err)
+int	file_error(t_pipeline *node, char *filepath, int err)
 {
 	if (err == 1)
 	{
@@ -46,11 +50,12 @@ void	file_error(t_pipeline *node, char *filepath, int err)
 	else if (err == 2)
 	{
 		perror("Minishell: Error OUTF");
-		node->infile_fd = -1;
+		node->outfile_fd = -1;
 	}
+	return (-1);
 }
 
-void	open_infile(t_pipeline *node)
+int	open_infile(t_pipeline *node)
 {
 	int		i;
 	int		fd;
@@ -59,9 +64,9 @@ void	open_infile(t_pipeline *node)
 	i = 0;
 	while (node->infiles[i])
 	{
-		filepath = NULL;
-		fd = -1;
-		filepath = get_pathfile(node->infiles[i]);
+		filepath = filepath_init(filepath, &fd, i, node);
+		if (filepath == NULL)
+			return (-1);
 		if (access(filepath, R_OK) == 0)
 		{
 			fd = open(filepath, O_RDONLY);
@@ -74,12 +79,12 @@ void	open_infile(t_pipeline *node)
 		}
 		else
 			return (free(filepath), file_error(node, filepath, 1));
-		free(filepath);
-		i++;
+		i = free_fp_inc_i(i, filepath);
 	}
+	return (0);
 }
 
-void	open_outfile(t_pipeline *node)
+int	open_outfile(t_pipeline *node)
 {
 	int		i;
 	int		fd;
@@ -90,19 +95,20 @@ void	open_outfile(t_pipeline *node)
 	{
 		if (node->outfiles[i][0] == '0')
 		{
-			if (open_outfile_0(node, filepath, fd, i) == EXIT_FAILURE)
+			if (open_outfile_0(node, filepath, fd, i) == -1)
 				return (file_error(node, filepath, 2));
 		}
 		else if (node->outfiles[i][0] == 'x')
 		{
-			if (open_outfile_x(node, filepath, fd, i) == EXIT_FAILURE)
+			if (open_outfile_x(node, filepath, fd, i) == -1)
 				return (file_error(node, filepath, 2));
 		}
 		i++;
 	}
+	return (0);
 }
 
-void	open_file(t_data *data)
+int	open_file(t_data *data)
 {
 	int	i;
 
@@ -110,11 +116,21 @@ void	open_file(t_data *data)
 	while (data->all_pipes->pipelines[i])
 	{
 		if (data->all_pipes->pipelines[i]->here_docs[0] != NULL)
-			heredocs(data->all_pipes->pipelines[i]);
+		{
+			if (heredocs(data->all_pipes->pipelines[i]) == -1)
+				return (-1);
+		}
 		if (data->all_pipes->pipelines[i]->infiles[0] != NULL)
-			open_infile(data->all_pipes->pipelines[i]);
+		{
+			if (open_infile(data->all_pipes->pipelines[i]) == -1)
+				return (-1);
+		}
 		if (data->all_pipes->pipelines[i]->outfiles[0] != NULL)
-			open_outfile(data->all_pipes->pipelines[i]);
+		{
+			if (open_outfile(data->all_pipes->pipelines[i]) == -1)
+				return (-1);
+		}
 		i++;
 	}
+	return (0);
 }

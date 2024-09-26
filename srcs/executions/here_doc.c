@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:14:04 by bince             #+#    #+#             */
-/*   Updated: 2024/08/13 13:14:26 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 18:50:52 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,11 @@ char	*get_namedoc(void)
 	while (loop == 1)
 	{
 		num = ft_itoa(nb);
+		if (num == NULL)
+			return (NULL);
 		name = ft_strjoin("/tmp/.heredoc_", num);
+		if (name == NULL)
+			return (free(num), NULL);
 		free(num);
 		if (access(name, F_OK) != 0)
 			loop = 0;
@@ -83,7 +87,7 @@ void	handle_heredoc(char *delim, int fd)
 	lseek(fd, 0, SEEK_SET);
 }
 
-void	heredocs(t_pipeline *pipeline)
+int	heredocs(t_pipeline *pipeline)
 {
 	int		i;
 	char	*filename;
@@ -93,21 +97,20 @@ void	heredocs(t_pipeline *pipeline)
 	while (pipeline->here_docs[i])
 	{
 		filename = get_namedoc();
+		if (filename == NULL)
+			return (-1);
 		fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0644);
 		if (fd == -1)
-		{
-			perror("Error open");
-			free(filename);
-			return ;
-		}
+			return (open_err_hd(filename));
 		handle_heredoc(pipeline->here_docs[i], fd);
 		if (g_signals.here_doc_quit)
 		{
 			close(fd);
 			unlink(filename);
 			free(filename);
-			return ;
+			return (-1);
 		}
 		heredocs_2(pipeline, &i, fd, filename);
 	}
+	return (0);
 }

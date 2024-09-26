@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 06:47:58 by bince             #+#    #+#             */
-/*   Updated: 2024/08/13 06:47:59 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 17:08:14 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ t_nns	*nns_init(char *input)
 	nns->name = NULL;
 	nns->newstr = ft_strdup(input);
 	if (!nns->newstr)
+	{
+		free(nns);
 		return (NULL);
+	}
 	return (nns);
 }
 

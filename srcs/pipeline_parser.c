@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:59:12 by bince             #+#    #+#             */
-/*   Updated: 2024/08/13 12:59:23 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 17:14:06 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,15 @@ t_pipeline	*parser(char *input)
 	nns = nns_init(input);
 	if (!nns)
 	{
-		free_pipeline(pipeline);
+		free(pipeline);
 		return (NULL);
 	}
 	pipeline = parser_2(pipeline, &nns);
-	free(nns->newstr);
-	free(nns);
+	if (nns)
+	{
+		free(nns->newstr);
+		free(nns);
+	}
 	if (!pipeline)
 		return (NULL);
 	return (pipeline);

@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:59:43 by bince             #+#    #+#             */
-/*   Updated: 2024/08/13 12:59:56 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 16:22:05 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,10 @@ char	*quote_parser(char *str)
 
 	quote_indexes = write_quote_indexes(str);
 	if (!quote_indexes)
+	{
+		free(str);
 		return (NULL);
+	}
 	parsed_str = generate_str_wo_quotes(str, quote_indexes);
 	free(str);
 	if (!parsed_str)

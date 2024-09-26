@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:08:29 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/13 13:10:06 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 15:21:08 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,4 +110,8 @@ void		heredocs_2(t_pipeline *pipeline, int *i, int fd, char *filename);
 int			*write_quote_indexes(char *str);
 int			is_quote_index(int i, int *quote_indexes);
 t_vector2	quote_handler(char *str, int i);
+char		*put_str_in_str_utils(char *dest, char *parsed_str, int j);
+char		*var_digit(char *var_name, char *parsed_str, int j);
+char		*put_str_in_str(char *dest, char *source, int start_index,
+				int end_index);
 #endif

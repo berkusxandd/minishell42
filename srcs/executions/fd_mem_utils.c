@@ -1,38 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   err_handle.c                                       :+:      :+:    :+:   */
+/*   fd_mem_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 06:44:34 by bince             #+#    #+#             */
-/*   Updated: 2024/08/13 15:34:39 by bince            ###   ########.fr       */
+/*   Created: 2024/08/13 19:33:11 by bince             #+#    #+#             */
+/*   Updated: 2024/08/13 19:49:45 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-char	**error_1(char **tokens, t_nns *nns)
+char	*fp_fd_init(int *fd)
 {
-	free_tab(tokens);
-	free_nns(nns);
+	*fd = -1;
 	return (NULL);
 }
 
-char	**error_2(char **tokens)
+int	free_fp_inc_i(int i, char *filepath)
 {
-	free_tab(tokens);
-	return (NULL);
+	free(filepath);
+	return (i + 1);
 }
 
-void	error_empty_pipe(t_data *core)
+char	*filepath_init(char *filepath, int *fd, int i, t_pipeline *node)
 {
-	core->status = 2;
-	ft_putstr_fd("parse error near |.\n", 2);
-}
-
-void	error_pipeline_malloc(t_data *core)
-{
-	ft_putstr_fd("pipeline malloc error\n", 1);
-	free_all_pipelines(core->all_pipes);
+	filepath = fp_fd_init(fd);
+	filepath = get_pathfile(node->infiles[i]);
+	return (filepath);
 }

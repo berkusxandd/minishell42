@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
+/*   By: mel-yand <mel-yand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 18:50:30 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/13 12:35:46 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 15:31:49 by mel-yand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,14 @@ void	update_oldpwd(t_data *data)
 	pwd = find(data, "PWD");
 	if (old && pwd)
 	{
-		free(old->value);
-		old->value = ft_strdup(pwd->value);
+		if (old && old->value != NULL)
+		{
+			free(old->value);
+			if (pwd->value)
+				old->value = ft_strdup(pwd->value);
+			else
+				old->value = NULL;
+		}
 	}
 	else if (!pwd)
 	{

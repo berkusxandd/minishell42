@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:14:15 by mel-yand          #+#    #+#             */
-/*   Updated: 2024/08/13 12:47:54 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 19:46:17 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,17 @@ int		exec_builtins(t_data *data, t_pipeline *node);
 //					FILE_HANDLER					//
 //--------------------------------------------------//
 
-void	open_file(t_data *data);
+int		open_file(t_data *data);
 int		open_outfile_x(t_pipeline *node, char *filepath, int fd, int i);
 int		open_outfile_0(t_pipeline *node, char *filepath, int fd, int i);
 char	*get_pathfile(char *filename);
 
 //--------------------------------------------------//
-//					HEREDOC							 //
+//					HEREDOC							//
 //--------------------------------------------------//
 
-void	heredocs(t_pipeline *pipeline);
+int		open_err_hd(char *filename);
+int		heredocs(t_pipeline *pipeline);
 
 //--------------------------------------------------//
 //					INIT_EXEC						//
@@ -65,5 +66,7 @@ void	close_pipe(int pipe[2]);
 void	close_all_pipe(t_all_pipelines *all_pipes);
 void	creat_pipe(t_pipeline **node);
 void	std_handler(t_pipeline **node, int nb_process);
-
+int		free_fp_inc_i(int i, char *filepath);
+char	*fp_fd_init(int *fd);
+char	*filepath_init(char *filepath, int *fd, int i, t_pipeline *node);
 #endif

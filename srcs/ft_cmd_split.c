@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 06:47:34 by bince             #+#    #+#             */
-/*   Updated: 2024/08/13 12:30:31 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 17:22:17 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,11 @@ char	**deparse_spaces(char **parsed)
 			j++;
 		}
 		parsed[i] = quote_parser(parsed[i]);
+		if (!parsed[i])
+		{
+			free_tab(parsed);
+			return (NULL);
+		}
 		i++;
 	}
 	return (parsed);

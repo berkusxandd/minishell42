@@ -38,13 +38,14 @@ SRCS = ./srcs/main.c \
 		srcs/executions/open_ofiles.c\
 		srcs/executions/child.c\
 		srcs/utils/utils.c\
-		./srcs/quote_handler_utils.c
+		./srcs/quote_handler_utils.c\
+		srcs/executions/fd_mem_utils.c
 
 OBJS_DIR = ./objs
 OBJS = $(SRCS:./srcs/%.c=$(OBJS_DIR)/%.o)
 LIBFT = ./Libft/libft.a
-CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g3
+CC = cc
+CFLAGS = -Wall -Werror -Wextra
 RM = rm -rf
 
 GREEN = \033[0;92m

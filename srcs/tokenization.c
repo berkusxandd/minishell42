@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:11:34 by bince             #+#    #+#             */
-/*   Updated: 2024/08/13 13:11:34 by bince            ###   ########.fr       */
+/*   Updated: 2024/08/13 17:22:08 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	put_contents_to_nns(t_nns *nns, int i, int j, int k)
 	free(tmp);
 	if (!nns->newstr)
 	{
-		free_nns(nns);
 		return (0);
 	}
 	return (1);
@@ -80,6 +79,7 @@ t_nns	*gen_token(t_nns *nns_old, char token)
 {
 	t_nns	*nns;
 	char	*newstr;
+	t_nns	*tmp_nns;
 
 	newstr = ft_strdup(nns_old->newstr);
 	if (!newstr)
@@ -92,7 +92,10 @@ t_nns	*gen_token(t_nns *nns_old, char token)
 	free(newstr);
 	if (!nns)
 		return (NULL);
+	tmp_nns = nns;
 	nns = find_token(nns, token);
+	if (nns == NULL)
+		free_nns(tmp_nns);
 	return (nns);
 }
 
