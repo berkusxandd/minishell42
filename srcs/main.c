@@ -6,7 +6,7 @@
 /*   By: bince < bince@student.42.fr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:52:21 by bince             #+#    #+#             */
-/*   Updated: 2024/09/18 14:18:14 by bince            ###   ########.fr       */
+/*   Updated: 2024/09/27 11:47:18 by bince            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ int	pipe_check(t_all_pipelines *all_pipes)
 	{
 		if (all_pipes->pipelines[i]->cmd)
 		{
-			if (all_pipes->pipelines[i]->cmd[0] == NULL)
-				return (1);
+			if (all_pipes->pipelines[i]->cmd[0] == NULL
+				&& (all_pipes->pipelines[i]->infiles[0] == NULL
+					&& all_pipes->pipelines[i]->outfiles[0] == NULL
+					&& all_pipes->pipelines[i]->here_docs[0] == NULL))
+				return (-1);
 		}
 		i++;
 	}

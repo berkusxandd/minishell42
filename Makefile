@@ -23,6 +23,7 @@ SRCS = ./srcs/main.c \
 		srcs/builtins/env/env.c\
 		srcs/builtins/export/export.c\
 		srcs/builtins/export/export_utils.c\
+		srcs/builtins/export/export_utils1.c\
 		srcs/builtins/pwd/pwd.c\
 		srcs/builtins/unset/unset.c\
 		srcs/init/init_data.c\
