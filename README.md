@@ -1,7 +1,9 @@
 Program name minishell
+
 Turn in files Makefile, *.h, *.c
+
 Makefile NAME, all, clean, fclean, re
-Arguments
+
 External functs: 
   readline, rl_clear_history, rl_on_new_line,
   rl_replace_line, rl_redisplay, add_history,
@@ -13,8 +15,11 @@ External functs:
   strerror, perror, isatty, ttyname, ttyslot, ioctl,
   getenv, tcsetattr, tcgetattr, tgetent, tgetflag,
   tgetnum, tgetstr, tgoto, tputs
+  
 Libft authorized: Yes
+
 Description: Write a shell
+
 Your shell should:
 • Display a prompt when waiting for a new command.
 • Have a working history.
@@ -27,8 +32,7 @@ Be careful. This global variable must only store the signal number
 and must not provide any additional information or access to data.
 Therefore, using "norm" type structures in the global scope is
 forbidden.
-5
-Minishell As beautiful as a shell
+
 • Not interpret unclosed quotes or special characters which are not required by the
 subject such as \ (backslash) or ; (semicolon).
 • Handle ’ (single quote) which should prevent the shell from interpreting the metacharacters in the quoted sequence.
